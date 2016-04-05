@@ -1,0 +1,4 @@
+Compile with:
+g++ -std=c++0x thread.cpp receiver.cpp sender.cpp -lpthread -o udp_test
+
+Don't forget to set the correct IP address when testing!
