@@ -8,5 +8,5 @@
 
 #include <iostream>
 int main(){
-	std::cout << "Tonino is een kleine penis Lol" <<  std::endl;
+	std::cout << "Tonino heeft een demonen piemel" <<  std::endl;
 }
