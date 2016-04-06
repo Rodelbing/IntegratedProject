@@ -1,10 +1,13 @@
-/*
- * main.cpp
+/* main.cpp
  *
- *  Created on: Apr 6, 2016
- *      Author: ubuntu-gnome
+ *  Created on: 5 Apr 2016
+ *  Author: Gino van Spil, Nahuel Manterola, Major Thom & Tonino Redonet
+ *  Group number: 1
  */
+#include "Sendtest.cpp"
 
-
-
-
+#include <iostream>
+int main(){
+	std::cout << "Test2" <<  std::endl;
+	Test();
+}
