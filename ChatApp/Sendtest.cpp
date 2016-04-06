@@ -4,7 +4,10 @@
 #include <arpa/inet.h>
 #include <iostream>
 
-struct addrinfo {
+
+
+
+/*struct addrinfo {
     int              ai_flags;     // AI_PASSIVE, AI_CANONNAME, etc.
     int              ai_family;    // AF_INET, AF_INET6, AF_UNSPEC
     int              ai_socktype;  // SOCK_STREAM, SOCK_DGRAM
@@ -31,20 +34,6 @@ struct sockaddr_in {
 struct in_addr {
     uint32_t s_addr; // that's a 32-bit int (4 bytes)
 };
+*/
 
-int Test(){
-struct sockaddr_in sa;
-int inet_pton(
-		AF_INET,
-		"192.168.2.2",
-		&(sa.sin_addr)
-		);
-
-char ip4[INET_ADDRSTRLEN];  // space to hold the IPv4 string
-struct sockaddr_in sa;      // pretend this is loaded with something
-
-int inet_ntop(AF_INET, &(sa.sin_addr), ip4, INET_ADDRSTRLEN);
-std::cout << "The IPv4 address is: " << ip4 << std::endl;
-return 0;
-}
 
