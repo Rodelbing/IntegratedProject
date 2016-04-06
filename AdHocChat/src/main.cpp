@@ -11,3 +11,4 @@ int main(){
 	std::cout << "Test2" <<  std::endl;
 	Test();
 }
+// Thom is dik!
