@@ -39,9 +39,6 @@ int main(int argc, char *argv[])
             addr = &(ipv4->sin_addr);
             ipver = "IPv4";
         } else { // IPv6
-            struct sockaddr_in6 *ipv6 = (struct sockaddr_in6 *)p->ai_addr;
-            addr = &(ipv6->sin6_addr);
-            ipver = "IPv6";
         }
 
         // convert the IP to a string and print it:
