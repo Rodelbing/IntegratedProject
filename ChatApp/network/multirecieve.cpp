@@ -21,9 +21,7 @@
 #define BUFSIZE 2048
 
 int makesocket(int PORT, std::string group, std::string ip){
-	struct sockaddr_in remaddr;
 	int pack;
-	unsigned char buf[BUFSIZE];
 
 	if ((pack = socket(AF_INET, SOCK_DGRAM,0)) < 0){
 		perror("cannot create socket!");
