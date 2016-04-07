@@ -16,6 +16,8 @@
 #include <sys/socket.h>
 #include <sys/types.h>
 
+#include "../lib/BlockingQueue.h"
+
 #define BUFSIZE 2048
 
 int makesocket(int PORT, std::string group, std::string ip){
@@ -56,11 +58,13 @@ int makesocket(int PORT, std::string group, std::string ip){
 
 }
 
-int multirecieve(int PORT, std::string group, std::string ip){
+int multirecieve(int PORT, std::string group, std::string ip,  BlockingQueue<std::string> &q){
 
 	int pack = makesocket(PORT, group, ip);
 	int recvlen;
-	unsigned char buf[BUFSIZE];
+	char buf[BUFSIZE];
+
+	recvlen = 0;
 
 	struct sockaddr_in peer_address;
 	socklen_t peer_address_len;
@@ -71,12 +75,9 @@ int multirecieve(int PORT, std::string group, std::string ip){
 			recvlen = recvfrom(pack, buf, BUFSIZE, 0, (struct sockaddr *)&peer_address, &peer_address_len);
 			std::cout << "received bytes: " << recvlen << std::endl;
 			if (recvlen > 0) {
-				buf[recvlen] = 0;
-				std::cout << inet_ntoa(peer_address.sin_addr) << " says:" << std::endl;
+				q.push(std::string(buf, recvlen));
 				std::cout << buf << std::endl;
-
 			}
-
 		}
 
 		exit(0);
