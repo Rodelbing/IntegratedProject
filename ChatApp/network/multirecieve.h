@@ -8,3 +8,4 @@
 #include "../lib/BlockingQueue.h"
 
 int multirecieve(int PORT, std::string group, std::string ip,  BlockingQueue<std::string> &q);
+int makesocket(int PORT, std::string group, std::string ip);
