@@ -6,4 +6,4 @@
  */
 #include <string.h>
 
-int tcpsend(int PORT, std::string ip, std::string buf); // (Input port, 228.2.1.3, OWN IP, message to be sent)
+int tcpsend(int PORT, std::string receiver, std::string ip, std::string buf); // (Input port, 228.2.1.3, OWN IP, message to be sent)
