@@ -9,6 +9,7 @@
 #include "network/tcpsend.h"
 #include "network/tcpreceive.h"
 #include "lib/BlockingQueue.h"
+#include "network/sendMessage.h"
 
 BlockingQueue<std::string> q;
 
@@ -19,6 +20,7 @@ int main() {
 	multisend(14000, "228.1.2.3", MyIP, "HALLO");
 	std::thread receiver(multirecieve, 14000, "228.1.2.3", MyIP,std::ref(q));
 	tcpsend(55056, "192.168.5.2", "Holabola");
+	sendMessage("192.168.5.1", "Hohoho");
 	while (1) {
 		std::string message = q.pop();
 		std::cout << "main thread sees something! It sees:" << std::endl;
