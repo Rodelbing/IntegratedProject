@@ -18,7 +18,7 @@ int main() {
 	tcpsend(55056, "192.168.5.1", "192,168.5.2", "Holabola");
 	while (1) {
 		std::string message = q.pop();
-		std::cout << "main thread sees something! It sees:" << std::endl;
+		std::cout << "main thread sees something! It sees: " << std::endl;
 		std::cout << message << std::endl;
 		}
 
