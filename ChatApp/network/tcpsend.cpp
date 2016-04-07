@@ -25,9 +25,9 @@
 
 #define BUFSIZE 2048
 
-int tcpsend(int PORT, std::string group, std::string ip, std::string buf){
+int tcpsend(int PORT, std::string ip, std::string buf){
 	int pack;
-
+	std::string group = "228.1.2.3";
 	if ((pack = socket(AF_INET, SOCK_STREAM,0)) == -1){
 		perror("cannot create socket!");
 		return 0;
