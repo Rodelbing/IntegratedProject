@@ -15,7 +15,7 @@
 #include <string.h>
 #include <sys/socket.h>
 #include <sys/types.h>
-
+#include "getIP.h"
 #include "../lib/BlockingQueue.h"
 #define BUFSIZE 2048
 
@@ -50,9 +50,9 @@ int makeTCPsocket(int PORT, std::string ip){
 
 }
 
-int tcpreceive(int PORT, std::string ip,  BlockingQueue<std::string> &q){
+int tcpreceive(int PORT, BlockingQueue<std::string> &q){
 
-	int pack = makeTCPsocket(PORT, ip);
+	int pack = makeTCPsocket(PORT, getIP());
 	ssize_t recvlen;
 	char buf[BUFSIZE];
 

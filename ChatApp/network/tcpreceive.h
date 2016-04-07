@@ -7,4 +7,4 @@
 
 #include "../lib/BlockingQueue.h"
 
-int tcpreceive(int PORT, std::string ip,  BlockingQueue<std::string> &q);
+int tcpreceive(int PORT,  BlockingQueue<std::string> &q);

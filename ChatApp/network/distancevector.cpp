@@ -3,7 +3,7 @@
  *
  *  Created on: 7 apr. 2016
  *      Author: thomleemans
- */
+
 
 #include <iostream>
 #include <vector>
@@ -115,4 +115,4 @@ void lolololo(vector<tableEntry> dus){
  	 }
 
 
-}
+} */

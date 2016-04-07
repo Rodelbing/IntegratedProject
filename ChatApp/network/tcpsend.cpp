@@ -33,7 +33,7 @@ int tcpsend(int PORT, std::string receiver, std::string buf){
 		return 0;
 	}
 	else{
-		std::cout << "created socket: descriptor = " << pack << std::endl;
+		//std::cout << "created socket: descriptor = " << pack << std::endl;
 	}
 
 	struct sockaddr_in myaddr;
@@ -47,7 +47,7 @@ int tcpsend(int PORT, std::string receiver, std::string buf){
 			return 0;
 		}
 	else{
-		std::cout << "succesfull, port = " << ntohs(myaddr.sin_port) << std::endl;
+		//std::cout << "succesfull, port = " << ntohs(myaddr.sin_port) << std::endl;
 	}
 
 	struct sockaddr_in remmulti;
@@ -58,7 +58,7 @@ int tcpsend(int PORT, std::string receiver, std::string buf){
 
 	int slen = sizeof(remmulti);
 
-	std::cout << "trying to send message" << std::endl;
+	//std::cout << "trying to send message" << std::endl;
 
 	if ( connect(pack, (struct sockaddr *)&remmulti, sizeof(remmulti))<0 ){
 		perror("cannot connect");
