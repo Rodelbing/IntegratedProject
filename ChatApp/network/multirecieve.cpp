@@ -72,8 +72,11 @@ int multirecieve(int PORT, std::string group, std::string ip){
 			std::cout << "received bytes: " << recvlen << std::endl;
 			if (recvlen > 0) {
 				buf[recvlen] = 0;
+				std::cout << inet_ntoa(peer_address.sin_addr) << " says:" << std::endl;
 				std::cout << buf << std::endl;
+
 			}
+
 		}
 
 		exit(0);
