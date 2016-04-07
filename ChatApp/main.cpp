@@ -12,7 +12,8 @@ int main() {
 
 	while (1) {
 		std::string message = q.pop();
-		std::cout << "main thread sees something!" << std::endl;
+		std::cout << "main thread sees something! It sees:" << std::endl;
+		std::cout << message << std::endl;
 		}
 
 	}

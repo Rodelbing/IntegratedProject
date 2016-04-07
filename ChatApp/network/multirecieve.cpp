@@ -76,7 +76,7 @@ int multirecieve(int PORT, std::string group, std::string ip,  BlockingQueue<std
 			std::cout << "received bytes: " << recvlen << std::endl;
 			if (recvlen > 0) {
 				q.push(std::string(buf, recvlen));
-				std::cout << buf << std::endl;
+				//std::cout << buf << std::endl;
 			}
 		}
 
