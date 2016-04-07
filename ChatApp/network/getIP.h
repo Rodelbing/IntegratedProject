@@ -7,4 +7,4 @@
 
 #include <string>
 
-std::string getIP ();
+std::string getIP ();			// function to retriece ip of local machine

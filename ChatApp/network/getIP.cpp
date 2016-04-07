@@ -14,8 +14,8 @@
 #include <iostream>
 #include <string.h>
 
-std::string getIP () {
-	std::string IP;
+std::string getIP () {																//function to get ipv4 address of the local machine
+	std::string IP;																	// makes a linked list of interfaces and their addresses
     struct ifaddrs * ifAddrStruct=NULL;
     struct ifaddrs * ifa=NULL;
     void * tmpAddrPtr=NULL;
@@ -32,9 +32,9 @@ std::string getIP () {
             char addressBuffer[INET_ADDRSTRLEN];
             inet_ntop(AF_INET, tmpAddrPtr, addressBuffer, INET_ADDRSTRLEN);
 
-            if (strncmp(addressBuffer, "192.168.0.0", 7) == 0){
-            	IP = addressBuffer;
-            	return IP;
+            if (strncmp(addressBuffer, "192.168.0.0", 7) == 0){						// check to see if the address is a internal IP address of
+            	IP = addressBuffer;													// the 192.168.0.0/16 range, returns error if not since user is otherwise
+            	return IP;															// not properly connected
             }
             else {
             	//return "ERROR!";

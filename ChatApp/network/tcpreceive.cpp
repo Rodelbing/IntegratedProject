@@ -52,6 +52,7 @@ int makeTCPsocket(int PORT, std::string ip){
 
 int tcpreceive(int PORT, BlockingQueue<std::string> &q){
 
+	std::string foreignIP;
 	int pack = makeTCPsocket(PORT, getIP());
 	ssize_t recvlen;
 	char buf[BUFSIZE];
@@ -79,6 +80,7 @@ int tcpreceive(int PORT, BlockingQueue<std::string> &q){
 
 			q.push(std::string(buf, static_cast<int>(recvlen)));
 			std::cout << "Other: " << buf << std::endl;
+			foreignIP = inet_ntoa(peer_address.sin_addr);
 			}
 
 

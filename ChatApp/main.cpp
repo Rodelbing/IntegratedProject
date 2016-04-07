@@ -18,10 +18,10 @@ int main() {
 	std::string MyIP = getIP();
 	std::string Message;
 	//multisend(14000, "228.1.2.3", MyIP, "HALLO");
-	//std::thread receiver(multireceive, 14000, "228.1.2.3", MyIP,std::ref(q));
+	std::thread receiver(multireceive, 14000, "228.1.2.3", MyIP,std::ref(q));
 	//tcpsend(55056, "192.168.5.2", "Holabola");
-	std::thread receiver(tcpreceive, 55056, std::ref(q));
-	std::cout << "With who will you chat this session?" << std::endl;
+	//std::thread receiver(tcpreceive, 55056, std::ref(q));
+	//std::cout << "With who will you chat this session?" << std::endl;
 	std::cin >> DestinationIP;
 	while (1) {
 		std::cin >> Message;
