@@ -9,58 +9,65 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include <stack>
+#include <thread>
 
 using namespace std;
 
 struct tableEntry{
-		int dest;
-		int via;
+		string dest;
+		string via;
 	};
-// hoi
-//void lolololo(vector<tableEntry>);
 
+void lolololo(vector<tableEntry>);
 vector<tableEntry> stringToVector(string receivedString);
-string vectorToString(vector<tableEntry> myTable);
-int main() {
-	int myadress = 4;
-	int myname = 3045; // random
+string vectorToString(vector<tableEntry> myTablePtr);
+vector<tableEntry> *myTablePtr;
+
+BlockingQueue<std::string> q;
+
+void init(){
 	tableEntry self;
-	self.dest = myadress;
-	self.via = myname;
+	self.dest = "192.168.5.4";
+	self.via = "192.168.5.4";
+	myTablePtr->push_back(self);
+}
 
-	vector<tableEntry> myTable;
-	myTable.push_back(self);
-	vector<tableEntry> receivedTable;
+void start(vector<tableEntry> *inputTable){
+	myTablePtr = inputTable;
+	init();
+	std::thread receiver(multirecieve, 14000, "228.1.2.3", "192.168.5.4",std::ref(q));
+	while(true){
+		while(q.pop)
+		std::string message = q.pop();
+		routing(message);
+		sleep(1);
+	}
+}
 
-	for(auto& itema: receivedTable){
+void routing(string recStr) {
+	vector<tableEntry> receivedTable = stringToVector(recStr);
+	for(auto& itema: receivedTable){		//ostringstream convert1;
+		//convert1 << items.dest;
+		//Dest = convert1.str();
 		bool add = true;
 
-		for(auto& itemb: myTable){
+		for(auto& itemb: myTablePtr){
 			if(itema.dest == itemb.dest) add = false;
 		}
 
-		if(add)myTable.push_back(itema);
+		if(add)myTablePtr->push_back(itema);
 	}
+	string sendStr = vectorToString(myTablePtr);
+	//send string;
 
-//	lolololo(myTable);
-//	cout<<vectorToString(myTable)<<endl;
-//	lolololo(stringToVector(vectorToString(myTable)));
-
-	return 0;
 }
 
-string vectorToString(vector<tableEntry> myTable) {
+string vectorToString(vector<tableEntry> myTablePtr) {
 	string myString;
-	for(auto& items : myTable){
-		string Dest = "";
-		ostringstream convert1;
-		convert1 << items.dest;
-		Dest = convert1.str();
-
-		ostringstream convert2;
-		string Via = "";
-		convert2 << items.via;
-		Via = convert2.str();
+	for(auto& items : myTablePtr){
+		string Dest = items.dest;
+		string Via = items.via;
 
 		myString += "_";
 		myString += Dest;
@@ -93,8 +100,8 @@ vector<tableEntry> stringToVector(string receivedString) {
 	    		}
 	    	}
 	    	tableEntry temp;
-	    	temp.dest = stoi(tempDest);
-	    	temp.via = stoi(tempVia);
+	    	temp.dest = tempDest;
+	    	temp.via = tempVia;
 	    	tempTable.push_back(temp);
 	    }
 	}
@@ -105,7 +112,7 @@ vector<tableEntry> stringToVector(string receivedString) {
 void lolololo(vector<tableEntry> dus){
  for(auto& items: dus){
 	 cout<<items.dest<<" voor fuck sake thom "<<items.via<<endl;
- }
+ 	 }
 
 
 }
