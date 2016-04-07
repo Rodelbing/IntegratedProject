@@ -55,20 +55,29 @@ int tcpreceive(int PORT, std::string ip,  BlockingQueue<std::string> &q){
 	int pack = makeTCPsocket(PORT, ip);
 	ssize_t recvlen;
 	char buf[BUFSIZE];
-	if((listen(pack, 3)) < 0){
-		perror("I won't receive!");
-	}
+
 	recvlen = 0;
 	struct sockaddr_in peer_address;
 	socklen_t peer_address_len = sizeof(struct sockaddr_storage);
 	while(true){
+			if((listen(pack, 3)) < 0){
+				perror("I won't receive!");
+			}
 
-			if ((accept(pack, (struct sockaddr *) &peer_address, &peer_address_len)) < 0) {
+			int readsocket = accept(pack, (struct sockaddr *) &peer_address, &peer_address_len);
+
+			if (readsocket < 0) {
 				perror("cannot accept!");
 			}
 
-			recvlen = recv(pack,buf, BUFSIZE,0);
-			q.push(std::string(buf, recvlen));
+			recvlen = read(readsocket,buf, BUFSIZE);
+			if (recvlen < 0){
+				perror("reading error!");
+			}
+
+			std::cout << recvlen << std::endl;
+
+			q.push(std::string(buf, static_cast<int>(recvlen)));
 			std::cout << buf << std::endl;
 			}
 
