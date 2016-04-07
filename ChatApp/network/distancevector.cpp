@@ -16,7 +16,7 @@ struct tableEntry{
 		int dest;
 		int via;
 	};
-
+// hoi
 //void lolololo(vector<tableEntry>);
 
 vector<tableEntry> stringToVector(string receivedString);
