@@ -2,12 +2,14 @@
 #include <cstring>
 #include <unistd.h>
 
+#include "network/multisend.h"
 #include "network/multirecieve.h"
 #include "lib/BlockingQueue.h"
 
 BlockingQueue<std::string> q;
 
 int main() {
+	multisend(14000, "228.1.2.3", "192.168.5.1", "HALLO");
 	std::thread receiver(multirecieve, 14000, "228.1.2.3", "192.168.5.1",std::ref(q));
 
 	while (1) {
