@@ -75,7 +75,7 @@ int tcpreceive(int PORT, BlockingQueue<std::string> &q){
 				perror("reading error!");
 			}
 
-			std::cout << recvlen << std::endl;
+			//std::cout << recvlen << std::endl;
 
 			q.push(std::string(buf, static_cast<int>(recvlen)));
 			std::cout << "Other: " << buf << std::endl;
