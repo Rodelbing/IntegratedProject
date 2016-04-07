@@ -34,7 +34,7 @@ int makesocket(int PORT, std::string group, std::string ip){					// function to 
 	myaddr.sin_port = htons(PORT);												// listen to the specified port
 
 	if (bind(pack, (struct sockaddr *)&myaddr, sizeof(myaddr)) < 0){			// binds to socket
-		throw std::runtime_error("Bind failed!");								// throws error if binding is not possible, e.g.:port already in use
+		throw std::runtime_error("Bind failed! multicast receiver");								// throws error if binding is not possible, e.g.:port already in use
 	}
 
 	struct ip_mreq group_req; 													//struct for multicast group requests
