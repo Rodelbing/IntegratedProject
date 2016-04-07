@@ -25,7 +25,7 @@
 
 #define BUFSIZE 2048
 
-int tcpsend(int PORT, std::string receiver, std::string ip, std::string buf){
+int tcpsend(int PORT, std::string receiver, std::string buf){
 	int pack;
 
 	if ((pack = socket(AF_INET, SOCK_STREAM,0)) == -1){
