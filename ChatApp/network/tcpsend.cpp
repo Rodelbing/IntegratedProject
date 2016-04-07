@@ -50,18 +50,6 @@ int tcpsend(int PORT, std::string group, std::string ip, std::string buf){
 		std::cout << "succesfull, port = " << ntohs(myaddr.sin_port) << std::endl;
 	}
 
-	char loop = 0;
-	 if(setsockopt(pack, IPPROTO_IP, IP_MULTICAST_LOOP, (char *)&loop, sizeof(loop)) < 0){
-		 perror("Loopback set error!");
-	 }
-
-	 struct in_addr local = {0};
-	 local.s_addr = inet_addr(ip.c_str());
-	 if(setsockopt(pack, IPPROTO_IP, IP_MULTICAST_IF, (char *)&local, sizeof(local)) < 0){
-		 perror("Local interface failed");
-	 }
-
-
 	struct sockaddr_in remmulti;
 	memset((char *) &remmulti, 0, sizeof(remmulti));
 	remmulti.sin_family = AF_INET;
@@ -72,9 +60,13 @@ int tcpsend(int PORT, std::string group, std::string ip, std::string buf){
 
 	std::cout << "trying to send message" << std::endl;
 
+	if ( connect(pack, (struct sockaddr *)&remmulti, sizeof(remmulti))<0 ){
+		perror("cannot connect");
+		exit(1);
+	}
 
-	if ((sendto(pack, buf.c_str(), buf.size(), 0, (struct sockaddr *)&remmulti, slen)) < 0){
-		perror("sendto");
+	if (send(pack, buf.c_str(), buf.size(), 0) < 0){
+		perror("send");
 	}
 
 	close(pack);
