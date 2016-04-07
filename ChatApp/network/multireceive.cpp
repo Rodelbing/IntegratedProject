@@ -56,7 +56,7 @@ int makesocket(int PORT, std::string group, std::string ip){
 
 }
 
-int multirecieve(int PORT, std::string group, std::string ip,  BlockingQueue<std::string> &q){
+int multireceive(int PORT, std::string group, std::string ip,  BlockingQueue<std::string> &q){
 
 	int pack = makesocket(PORT, group, ip);
 	int recvlen;
