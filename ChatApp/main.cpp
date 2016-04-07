@@ -20,13 +20,13 @@ int main() {
 	//multisend(14000, "228.1.2.3", MyIP, "HALLO");
 	//std::thread receiver(multirecieve, 14000, "228.1.2.3", MyIP,std::ref(q));
 	//tcpsend(55056, "192.168.5.2", "Holabola");
-	std::thread receiver(tcpreceive, 55056, )
+	std::thread receiver(tcpreceive, 55056, std::ref(q));
 	std::cout << "With who will you chat this session?" << std::endl;
 	std::cin >> DestinationIP;
 	while (1) {
 		std::cin >> Message;
 		std::cout << "You: " << Message << std::endl;
-		sendMessage("192.168.5.1", Message);
+		sendMessage(DestinationIP, Message);
 		//std::string message = q.pop();
 		//std::cout << message << std::endl;
 	}

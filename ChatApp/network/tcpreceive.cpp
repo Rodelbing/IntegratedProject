@@ -78,7 +78,7 @@ int tcpreceive(int PORT, BlockingQueue<std::string> &q){
 			std::cout << recvlen << std::endl;
 
 			q.push(std::string(buf, static_cast<int>(recvlen)));
-			std::cout << buf << std::endl;
+			std::cout << "Other: " << buf << std::endl;
 			}
 
 
