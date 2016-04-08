@@ -22,7 +22,6 @@
 #include "../lib/BlockingQueue.h"
 
 using namespace std;
-//dikke vette yolo
 struct tableEntry{
 		string dest;
 		string via;
@@ -78,8 +77,10 @@ void routing(string recStr, string senderIP) {
 		}
 
 		if(add){
-			itema.via = senderIP;
-			myTablePtr->push_back(itema);
+			tableEntry tmp;
+			tmp.dest = itema.dest;
+			tmp.via = senderIP;
+			myTablePtr->push_back(tmp);
 
 		}
 	}
