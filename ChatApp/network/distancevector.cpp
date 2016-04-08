@@ -11,6 +11,15 @@
 #include <sstream>
 #include <stack>
 #include <thread>
+#include <cstring>
+#include <unistd.h>
+#include "getIP.h"
+#include "multisend.h"
+#include "multirecieve.h"
+#include "multisend.h"
+#include "tcpsend.h"
+#include "tcpreceive.h"
+#include "../lib/BlockingQueue.h"
 
 using namespace std;
 
@@ -23,7 +32,7 @@ void lolololo(vector<tableEntry>);
 vector<tableEntry> stringToVector(string receivedString);
 string vectorToString(vector<tableEntry> myTablePtr);
 vector<tableEntry> *myTablePtr;
-
+void routing(string);
 BlockingQueue<std::string> q;
 
 void init(){
@@ -38,10 +47,9 @@ void start(vector<tableEntry> *inputTable){
 	init();
 	std::thread receiver(multirecieve, 14000, "228.1.2.3", "192.168.5.4",std::ref(q));
 	while(true){
-		while(q.pop)
 		std::string message = q.pop();
 		routing(message);
-		sleep(1);
+		//sleep(1)
 	}
 }
 
@@ -52,13 +60,13 @@ void routing(string recStr) {
 		//Dest = convert1.str();
 		bool add = true;
 
-		for(auto& itemb: myTablePtr){
+		for(auto& itemb: *myTablePtr){
 			if(itema.dest == itemb.dest) add = false;
 		}
 
 		if(add)myTablePtr->push_back(itema);
 	}
-	string sendStr = vectorToString(myTablePtr);
+	string sendStr = vectorToString(*myTablePtr);
 	//send string;
 
 }
