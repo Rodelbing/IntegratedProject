@@ -115,6 +115,8 @@ vector<tableEntry> stringToVector(string receivedString) {
 	    	temp.dest = tempDest;
 	    	temp.via = tempVia;
 	    	tempTable.push_back(temp);
+	    	tempDest="";
+	    	tempVia="";
 	    }
 	}
 	return tempTable;
