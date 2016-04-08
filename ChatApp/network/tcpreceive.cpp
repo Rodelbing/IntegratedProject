@@ -18,7 +18,7 @@
 #include "getIP.h"
 #include "analyzeTCPpacket.h"
 #include "../lib/BlockingQueue.h"
-#define BUFSIZE 2048
+#define BUFSIZE 8192
 
 
 int makeTCPsocket(int PORT, std::string ip){									// function to make tcp socket
