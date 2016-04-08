@@ -15,4 +15,4 @@ struct tableEntry{
 		string via;
 	};
 
-void start(vector<tableEntry> *inputTable);
+void start(vector<tableEntry>*);
