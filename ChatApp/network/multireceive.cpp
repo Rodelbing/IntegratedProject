@@ -47,7 +47,7 @@ int makesocket(int PORT, std::string group, std::string ip){					// function to 
 
 }
 
-int multireceive(int PORT, std::string group, std::string ip,  BlockingQueue<std::string> &q){
+int multireceive(int PORT, std::string group, std::string ip,  BlockingQueue<std::string> &q, BlockingQueue<std::string> &foreign){
 
 	int pack = makesocket(PORT, group, ip);										// call function above to make socket
 	int recvlen;
@@ -65,10 +65,12 @@ int multireceive(int PORT, std::string group, std::string ip,  BlockingQueue<std
 			recvlen = recvfrom(pack, buf, BUFSIZE, 0, (struct sockaddr *)&peer_address, &peer_address_len);	//actual receiving mechanism, returns amount of bytes received
 			//std::cout << "received bytes: " << recvlen << std::endl;
 			if (recvlen > 0) {													// if bytes available push them to the BlockingQueue
+				foreignIP = inet_ntoa(peer_address.sin_addr);					// stores IP of sender
+				std::cout << foreignIP << std::endl;
 				q.push(std::string(buf, recvlen));
-				//std::cout << buf << std::endl;
+				foreign.push(std::string(foreignIP, foreignIP.size()));
 			}
-			foreignIP = inet_ntoa(peer_address.sin_addr);						// stores IP of sender
+
 		}
 
 		exit(0);
