@@ -3,7 +3,7 @@
  *
  *  Created on: 7 apr. 2016
  *      Author: thomleemans
-
+*/
 
 #include <iostream>
 #include <vector>
@@ -11,9 +11,18 @@
 #include <sstream>
 #include <stack>
 #include <thread>
+#include <cstring>
+#include <unistd.h>
+#include "getIP.h"
+#include "multisend.h"
+#include "multireceive.h"
+#include "multisend.h"
+#include "tcpsend.h"
+#include "tcpreceive.h"
+#include "../lib/BlockingQueue.h"
 
 using namespace std;
-
+//dikke vette yolo
 struct tableEntry{
 		string dest;
 		string via;
@@ -23,7 +32,7 @@ void lolololo(vector<tableEntry>);
 vector<tableEntry> stringToVector(string receivedString);
 string vectorToString(vector<tableEntry> myTablePtr);
 vector<tableEntry> *myTablePtr;
-
+void routing(string);
 BlockingQueue<std::string> q;
 
 void init(){
@@ -36,29 +45,26 @@ void init(){
 void start(vector<tableEntry> *inputTable){
 	myTablePtr = inputTable;
 	init();
-	std::thread receiver(multirecieve, 14000, "228.1.2.3", "192.168.5.4",std::ref(q));
+	//std::thread receiver(multirecieve, 14000, "228.1.2.3", "192.168.5.4",std::ref(q));
 	while(true){
-		while(q.pop)
 		std::string message = q.pop();
 		routing(message);
-		sleep(1);
+		//sleep(1)
 	}
 }
 
 void routing(string recStr) {
 	vector<tableEntry> receivedTable = stringToVector(recStr);
-	for(auto& itema: receivedTable){		//ostringstream convert1;
-		//convert1 << items.dest;
-		//Dest = convert1.str();
+	for(auto& itema: receivedTable){
 		bool add = true;
-
-		for(auto& itemb: myTablePtr){
+		for(auto& itemb: *myTablePtr){
 			if(itema.dest == itemb.dest) add = false;
+			if(itema.dest == itemb.dest && itemb.dest != itemb.via && itema.dest == itema.via)itemb.via = itema.via;
 		}
 
 		if(add)myTablePtr->push_back(itema);
 	}
-	string sendStr = vectorToString(myTablePtr);
+	string sendStr = vectorToString(*myTablePtr);
 	//send string;
 
 }
@@ -68,7 +74,6 @@ string vectorToString(vector<tableEntry> myTablePtr) {
 	for(auto& items : myTablePtr){
 		string Dest = items.dest;
 		string Via = items.via;
-
 		myString += "_";
 		myString += Dest;
 		myString += "-";
@@ -116,4 +121,4 @@ void lolololo(vector<tableEntry> dus){
 
 
 }
-*/
+
