@@ -28,7 +28,8 @@ public:
 		pthread_mutex_lock(&mutex_queue);
 		if (theQueue.empty()) { //we need to wait if there is nothing in the queue!
 			//cout << "POP - waiting..." << endl;
-			pthread_cond_wait(&cond, &mutex_queue);
+			pthread_mutex_unlock(&mutex_queue);
+			return "";
 		}
 		//cout << "POP - reading front" << endl;
 		T ret = theQueue.front();
