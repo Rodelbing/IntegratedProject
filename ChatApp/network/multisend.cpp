@@ -66,6 +66,8 @@ int multisend(int PORT, std::string group, std::string ip, std::string buf){			/
 		throw std::runtime_error("sendto");
 	}
 
+	std::cout << "ping!" << std::endl;
+
 	close(pack);																		// closes the socket
 	return 0;
 }
