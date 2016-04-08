@@ -65,7 +65,7 @@ void routing(string recStr) {
 	vector<tableEntry> receivedTable = stringToVector(recStr);
 	for(auto& itema: receivedTable){
 		bool add = true;
-		for(auto itemb: *myTablePtr){
+		for(auto& itemb: *myTablePtr){
 			if(itema.dest == itemb.dest){
 				add = false;
 				std::cout << "" << itema.dest << ", " << itemb.dest << std::endl;
