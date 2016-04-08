@@ -33,43 +33,34 @@ int tcpsend(int PORT, std::string receiver, std::string buf){
 		return 0;
 	}
 	else{
-		std::cout << "created socket: descriptor = " << pack << std::endl;
+		//std::cout << "created socket: descriptor = " << pack << std::endl;
 	}
 
-	struct sockaddr_in myaddr;
+	struct sockaddr_in myaddr;													// create structure set parameters of our address etc
 	memset((char *)&myaddr, 0, sizeof(myaddr));
-	myaddr.sin_family = AF_INET;
-	myaddr.sin_addr.s_addr = htonl(INADDR_ANY);
-	myaddr.sin_port = htons(0);
+	myaddr.sin_family = AF_INET;												// listen on ipv4
+	myaddr.sin_addr.s_addr = htonl(0);											// listen on every interface
+	myaddr.sin_port = htons(0);													// listen to the specified port
 
-	if (bind(pack, (struct sockaddr *)&myaddr, sizeof(myaddr)) < 0){
-			perror ("bind failed");
-			return 0;
-		}
-	else{
-		std::cout << "succesfull, port = " << ntohs(myaddr.sin_port) << std::endl;
+	if (bind(pack, (struct sockaddr *)&myaddr, sizeof(myaddr)) < 0){			// binds to socket
+		throw std::runtime_error("Bind failed! tcp sender");								// throws error if binding is not possible, e.g.:port already in use
 	}
 
-	struct sockaddr_in remmulti;
-	memset((char *) &remmulti, 0, sizeof(remmulti));
-	remmulti.sin_family = AF_INET;
-	remmulti.sin_port = htons(PORT);
-	remmulti.sin_addr.s_addr = inet_addr(receiver.c_str());
+	struct sockaddr_in receiving;												// strcucture to set receiver address and port
+	memset((char *) &receiving, 0, sizeof(receiving));
+	receiving.sin_family = AF_INET;												// set to ipv4
+	receiving.sin_port = htons(PORT);											// set to specified port
+	receiving.sin_addr.s_addr = inet_addr(receiver.c_str());					// set to specified receiver
 
-	int slen = sizeof(remmulti);
-
-	std::cout << "trying to send message" << std::endl;
-
-	if ( connect(pack, (struct sockaddr *)&remmulti, sizeof(remmulti))<0 ){
-		perror("cannot connect");
-		exit(1);
+	if ( connect(pack, (struct sockaddr *)&receiving, sizeof(receiving))<0 ){	// attempts to connect to receiving client
+		throw std::runtime_error("Cannot connect to receiving client");
 	}
 
-	if (send(pack, buf.c_str(), buf.size(), 0) < 0){
-		perror("send");
+	if (send(pack, buf.c_str(), buf.size(), 0) < 0){							// send actual information after connection is established
+		throw std::runtime_error("Sending failed!");
 	}
 
-	close(pack);
+	close(pack);																// closes socket
 	return 0;
 }
 
