@@ -28,7 +28,7 @@ struct tableEntry{
 		string via;
 	};
 
-void lolololo(vector<tableEntry>);
+void printTable(vector<tableEntry>);
 vector<tableEntry> stringToVector(string receivedString);
 string vectorToString(vector<tableEntry> myTablePtr);
 vector<tableEntry> *myTablePtr;
@@ -118,7 +118,7 @@ vector<tableEntry> stringToVector(string receivedString) {
 }
 
 
-void lolololo(vector<tableEntry> dus){
+void printTable(vector<tableEntry> dus){
  for(auto& items: dus){
 	 cout<<items.dest<<" voor fuck sake thom "<<items.via<<endl;
  	 }
