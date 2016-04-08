@@ -2,6 +2,8 @@
 #include <cstring>
 #include <unistd.h>
 #include <vector>
+//#include <SDL.h>
+#include <stdio.h>
 
 #include "network/getIP.h"
 #include "network/multisend.h"
@@ -11,6 +13,7 @@
 #include "lib/BlockingQueue.h"
 #include "network/multireceive.h"
 #include "network/sendMessage.h"
+
 
 BlockingQueue<std::string> q;
 

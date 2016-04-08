@@ -33,7 +33,7 @@ vector<tableEntry> stringToVector(string receivedString);
 string vectorToString(vector<tableEntry> myTablePtr);
 vector<tableEntry> *myTablePtr;
 void routing(string);
-BlockingQueue<std::string> q;
+BlockingQueue<std::string> bq;
 
 void init(){
 	tableEntry self;
@@ -47,7 +47,7 @@ void start(vector<tableEntry> *inputTable){
 	init();
 	//std::thread receiver(multirecieve, 14000, "228.1.2.3", "192.168.5.4",std::ref(q));
 	while(true){
-		std::string message = q.pop();
+		std::string message = bq.pop();
 		routing(message);
 		//sleep(1)
 	}
