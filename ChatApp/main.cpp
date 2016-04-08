@@ -1,6 +1,7 @@
 #include <thread>
 #include <cstring>
 #include <unistd.h>
+#include <vector>
 
 #include "network/getIP.h"
 #include "network/multisend.h"
@@ -13,10 +14,16 @@
 
 BlockingQueue<std::string> q;
 
+struct tableEntry{
+		string dest;
+		string via;
+	};
+
 int main() {
 	std::string DestinationIP;
 	std::string MyIP = getIP();
 	std::string Message;
+	vector<tableEntry> fwdTable;
 	//multisend(14000, "228.1.2.3", MyIP, "HALLO");
 	//tcpsend(55056, "192.168.5.2", "Holabola");
 	std::thread receiver(tcpreceive, 14000, std::ref(q));

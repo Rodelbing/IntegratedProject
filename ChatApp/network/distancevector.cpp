@@ -28,7 +28,7 @@ struct tableEntry{
 		string via;
 	};
 
-void lolololo(vector<tableEntry>);
+void printTable(vector<tableEntry>);
 vector<tableEntry> stringToVector(string receivedString);
 string vectorToString(vector<tableEntry> myTablePtr);
 vector<tableEntry> *myTablePtr;
@@ -45,11 +45,16 @@ void init(){
 void start(vector<tableEntry> *inputTable){
 	myTablePtr = inputTable;
 	init();
-	//std::thread receiver(multirecieve, 14000, "228.1.2.3", "192.168.5.4",std::ref(q));
+	std::thread receiver(multireceive, 14000, "228.1.2.3", getIP(),std::ref(q));
 	while(true){
-		std::string message = q.pop();
-		routing(message);
-		//sleep(1)
+		std::string message;
+		while(message==q.pop()){
+			routing(message);
+		}
+		//send
+		string sendStr = vectorToString(*myTablePtr);
+		multisend(14000, "228.1.2.3", getIP(), sendStr);
+		sleep(1);
 	}
 }
 
@@ -64,13 +69,12 @@ void routing(string recStr) {
 
 		if(add)myTablePtr->push_back(itema);
 	}
-	string sendStr = vectorToString(*myTablePtr);
-	//send string;
 
 }
 
 string vectorToString(vector<tableEntry> myTablePtr) {
 	string myString;
+	myString += "Routing+";
 	for(auto& items : myTablePtr){
 		string Dest = items.dest;
 		string Via = items.via;
@@ -114,7 +118,7 @@ vector<tableEntry> stringToVector(string receivedString) {
 }
 
 
-void lolololo(vector<tableEntry> dus){
+void printTable(vector<tableEntry> dus){
  for(auto& items: dus){
 	 cout<<items.dest<<" voor fuck sake thom "<<items.via<<endl;
  	 }
