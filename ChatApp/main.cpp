@@ -23,8 +23,9 @@ int main() {
 	std::thread receiver(tcpreceive, 14000, std::ref(q));
 	std::cout << "With who will you chat this session?" << std::endl;
 	std::cin >> DestinationIP;
+	std::cout << "Say something! (or I'm giving up on you.)" << std::endl;
 	while (1) {
-		std::cout << "Say something! (or I'm giving up on you.)" << std::endl;
+
 		std::getline(std::cin, Message);
 		std::cout << "You: " << Message << std::endl;
 		sendMessage(DestinationIP, DestinationIP, Message);
