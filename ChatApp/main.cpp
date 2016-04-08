@@ -27,5 +27,8 @@ int main() {
 	//std::getline(std::cin, Message);
 	//sendMessage(DestinationIP, DestinationIP, Message);
 	//}
+	while(1){
+
+	}
 
 }
