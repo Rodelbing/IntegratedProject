@@ -33,7 +33,7 @@ vector<tableEntry> stringToVector(string receivedString);
 string vectorToString(vector<tableEntry> myTablePtr);
 vector<tableEntry> *myTablePtr;
 void routing(string);
-BlockingQueue<std::string> q;
+BlockingQueue<std::string> x;
 
 void init(){
 	tableEntry self;
@@ -45,16 +45,19 @@ void init(){
 void start(vector<tableEntry> *inputTable){
 	myTablePtr = inputTable;
 	init();
-	std::thread receiver(multireceive, 14000, "228.1.2.3", getIP(),std::ref(q));
+	string sendStr = vectorToString(*myTablePtr);
+	multisend(14000, "228.1.2.3", getIP(), sendStr);
+	std::thread receiver(multireceive, 14000, "228.1.2.3", getIP(),std::ref(x));
 	while(true){
 		std::string message;
-		while(message==q.pop()){
+		while(message==x.pop()){
 			routing(message);
 		}
 		//send
-		string sendStr = vectorToString(*myTablePtr);
+		sendStr = vectorToString(*myTablePtr);
 		multisend(14000, "228.1.2.3", getIP(), sendStr);
 		sleep(1);
+		printTable(*myTablePtr);
 	}
 }
 
@@ -122,7 +125,7 @@ void printTable(vector<tableEntry> dus){
  for(auto& items: dus){
 	 cout<<items.dest<<" voor fuck sake thom "<<items.via<<endl;
  	 }
-
+ 	 cout<<"<-End table->"<<endl;
 
 }
 
