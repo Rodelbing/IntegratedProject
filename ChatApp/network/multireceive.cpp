@@ -33,7 +33,7 @@ int makesocket(int PORT, std::string group, std::string ip){					// function to 
 	myaddr.sin_addr.s_addr = htonl(0);											// listen on every interface
 	myaddr.sin_port = htons(PORT);												// listen to the specified port
 
-	if (bind(pack, (struct sockaddr *)&myaddr, sizeof(myaddr)) < 0){			// binds to socket
+	if (::bind(pack, (struct sockaddr *)&myaddr, sizeof(myaddr)) < 0){			// binds to socket
 		throw std::runtime_error("Bind failed! multicast receiver");								// throws error if binding is not possible, e.g.:port already in use
 	}
 

@@ -23,7 +23,7 @@
 #include <sys/socket.h>
 #include <sys/types.h>
 
-#define BUFSIZE 2048
+#define BUFSIZE 8192
 
 int tcpsend(int PORT, std::string receiver, std::string buf){
 	int pack;
