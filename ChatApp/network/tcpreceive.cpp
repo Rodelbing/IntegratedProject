@@ -34,7 +34,7 @@ int makeTCPsocket(int PORT, std::string ip){									// function to make tcp soc
 		myaddr.sin_addr.s_addr = htonl(0);										// listen on every interface
 		myaddr.sin_port = htons(PORT);											// listen to the specified port
 
-		if (bind(pack, (struct sockaddr *)&myaddr, sizeof(myaddr)) < 0){		// binds to socket
+		if (::bind(pack, (struct sockaddr *)&myaddr, sizeof(myaddr)) < 0){
 			throw std::runtime_error("Bind failed! tcp receiver");							// throws error if binding is not possible, e.g.:port already in use
 		}
 

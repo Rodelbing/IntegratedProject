@@ -12,7 +12,7 @@
 #include "network/multireceive.h"
 #include "network/sendMessage.h"
 
-BlockingQueue<std::string> q;
+static BlockingQueue<std::string> q;
 
 struct tableEntry{
 		string dest;
