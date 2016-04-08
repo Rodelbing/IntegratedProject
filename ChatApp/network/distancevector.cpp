@@ -55,6 +55,7 @@ void start(vector<tableEntry> *inputTable){
 		string sendStr = vectorToString(*myTablePtr);
 		multisend(14000, "228.1.2.3", getIP(), sendStr);
 		sleep(1);
+		printTable(*myTablePtr);
 	}
 }
 
@@ -122,7 +123,7 @@ void printTable(vector<tableEntry> dus){
  for(auto& items: dus){
 	 cout<<items.dest<<" voor fuck sake thom "<<items.via<<endl;
  	 }
-
+ 	 cout<<"End table."<<endl;
 
 }
 
