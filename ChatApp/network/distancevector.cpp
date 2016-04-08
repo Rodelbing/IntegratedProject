@@ -15,7 +15,7 @@
 #include <unistd.h>
 #include "getIP.h"
 #include "multisend.h"
-#include "multirecieve.h"
+#include "multireceive.h"
 #include "multisend.h"
 #include "tcpsend.h"
 #include "tcpreceive.h"
@@ -45,7 +45,7 @@ void init(){
 void start(vector<tableEntry> *inputTable){
 	myTablePtr = inputTable;
 	init();
-	std::thread receiver(multirecieve, 14000, "228.1.2.3", "192.168.5.4",std::ref(q));
+	//std::thread receiver(multirecieve, 14000, "228.1.2.3", "192.168.5.4",std::ref(q));
 	while(true){
 		std::string message = q.pop();
 		routing(message);
