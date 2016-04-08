@@ -96,19 +96,13 @@ vector<tableEntry> stringToVector(string receivedString) {
 	size_t finePos;
 	vector<std::string> routes;
 	string tempVia;
-	int Counter=0;
-
-	Pos = receivedString.find("_");
-	receivedString.erase(0, Pos);
-	while(Pos = receivedString.find("_") != std::string::npos){
-		routes[Counter] = receivedString.substr(0, Pos);
-			finePos = routes[Counter].find("-");
-			tableEntry temp;
-			temp.dest = routes[Counter].substr(0,finePos);
-			temp.via = routes[Counter].substr(finePos,routes[Counter].size()-finePos);
-			tempTable.push_back(temp);
-		receivedString.erase(0, Pos);
-		Counter++;
+	for (int i =0; i< receivedString.length(); i++){
+	  if(receivedString[i] == '_'){
+	  tableEntry tmp;
+	  tmp.dest = receivedString.substr(i+1, 11);
+	  tmp.via = receivedString.substr(i+13, 11);
+	  myTablePtr->push_back(tmp);
+	  }
 	}
 	/*for(unsigned int i = 0; i<receivedString.length(); i++) {
 	    if(receivedString[i]=='_'){
