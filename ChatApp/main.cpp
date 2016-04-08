@@ -24,10 +24,10 @@ int main() {
 	std::cout << "With who will you chat this session?" << std::endl;
 	std::cin >> DestinationIP;
 	while (1) {
-		std::cout << "say something!" << std::endl;
+		std::cout << "Say something! (or I'm giving up on you.)" << std::endl;
 		std::getline(std::cin, Message);
 		std::cout << "You: " << Message << std::endl;
-		sendMessage(DestinationIP, Message);
+		sendMessage(DestinationIP, DestinationIP, Message);
 		//std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		//std::string message = q.pop();
 		//std::cout << message << std::endl;

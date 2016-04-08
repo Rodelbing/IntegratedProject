@@ -9,7 +9,7 @@
 #define NETWORK_SENDMESSAGE_H_
 
 
-int sendMessage(std::string DestinationIP, std::string Message);
+int sendMessage(std::string DestinationIP, std::string NextHop,std::string Message);
 
 
 #endif /* NETWORK_SENDMESSAGE_H_ */
