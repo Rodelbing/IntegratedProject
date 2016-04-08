@@ -50,15 +50,14 @@ void start(vector<tableEntry> *inputTable){
 	multisend(14000, "228.1.2.3", getIP(), sendStr);
 	while(true){
 		std::string message;
-		message = x.pop();
-		while(message=x.pop().size()>0){
+		while((message=x.pop()).size()>0){
 			routing(message);
 		}
 		//send
 		sendStr = vectorToString(*myTablePtr);
 		multisend(14000, "228.1.2.3", getIP(), sendStr);
-		sleep(1);
 		printTable(*myTablePtr);
+		sleep(1);
 	}
 }
 
