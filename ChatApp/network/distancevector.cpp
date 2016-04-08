@@ -22,7 +22,6 @@
 #include "../lib/BlockingQueue.h"
 
 using namespace std;
-//dikke vette yolo
 struct tableEntry{
 		string dest;
 		string via;
