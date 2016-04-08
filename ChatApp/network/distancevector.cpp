@@ -67,7 +67,7 @@ void routing(string recStr) {
 		bool add = true;
 		for(auto& itemb: *myTablePtr){
 			if(itema.dest == itemb.dest) add = false;
-			if(itema.dest == itemb.dest && itemb.dest != itemb.via && itema.dest == itema.via)itemb.via = itema.via;
+			if(itema.dest == itemb.dest && itemb.dest != itemb.via && itema.dest == itema.via) itemb.via = itema.via;
 		}
 
 		if(add)myTablePtr->push_back(itema);
@@ -123,7 +123,8 @@ vector<tableEntry> stringToVector(string receivedString) {
 
 void printTable(vector<tableEntry> dus){
  for(auto& items: dus){
-	 cout<<items.dest<<" voor fuck sake thom "<<items.via<<endl;
+	 cout<<items.dest<<" VIA "<<items.via<<endl;
+	 cout<<"<-En->"<<endl;
  	 }
  	 cout<<"<-End table->"<<endl;
 
