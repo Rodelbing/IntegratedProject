@@ -32,8 +32,8 @@ void printTable(vector<tableEntry>);
 vector<tableEntry> stringToVector(string receivedString);
 string vectorToString(vector<tableEntry> myTablePtr);
 vector<tableEntry> *myTablePtr;
-void routing(string);
-BlockingQueue<std::string> x;
+void routing(string, string);
+BlockingQueue<std::string> x, y;
 
 void init(){
 	tableEntry self;
@@ -45,13 +45,16 @@ void init(){
 void start(vector<tableEntry> *inputTable){
 	myTablePtr = inputTable;
 	init();
-	std::thread receiver(multireceive, 14000, "228.1.2.3", getIP(),std::ref(x));
+	std::thread receiver(multireceive, 14000, "228.1.2.3", getIP(),std::ref(x), std::ref(y));
 	string sendStr = vectorToString(*myTablePtr);
 	multisend(14000, "228.1.2.3", getIP(), sendStr);
 	while(true){
 		std::string message;
 		while((message=x.pop()).size()>0){
-			routing(message);
+			std::string senderIP;
+			senderIP = y.pop();
+			std::cout << senderIP << std::endl;
+			routing(message, senderIP);
 		}
 		//send
 		sendStr = vectorToString(*myTablePtr);
@@ -61,7 +64,7 @@ void start(vector<tableEntry> *inputTable){
 	}
 }
 
-void routing(string recStr) {
+void routing(string recStr, string senderIP) {
 	vector<tableEntry> receivedTable = stringToVector(recStr);
 	for(auto& itema: receivedTable){
 		bool add = true;
@@ -74,7 +77,11 @@ void routing(string recStr) {
 			}
 		}
 
-		if(add)myTablePtr->push_back(itema);
+		if(add){
+			itema.via = senderIP;
+			myTablePtr->push_back(itema);
+
+		}
 	}
 
 }
