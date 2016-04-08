@@ -9,7 +9,7 @@ int analyzeTCP(std::string Packet){
 
 	while ((Pos = Packet.find(Delimiter)) != std::string::npos) {
 	    SplitMessage[Counter] = Packet.substr(0, Pos);
-	   // std::cout << SplitMessage[Counter] << std::endl;
+	    //std::cout << SplitMessage[Counter] << std::endl;
 	    Packet.erase(0, Pos + Delimiter.length());
 	    Counter++;
 	}
