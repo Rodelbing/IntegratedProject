@@ -26,18 +26,18 @@ int main() {
 	vector<tableEntry> fwdTable;
 	//multisend(14000, "228.1.2.3", MyIP, "HALLO");
 	//tcpsend(55056, "192.168.5.2", "Holabola");
-	std::thread receiver(tcpreceive, 14000, std::ref(q));
-	std::cout << "With who will you chat this session?" << std::endl;
-	std::cin >> DestinationIP;
-	std::cout << "Say something! (or I'm giving up on you.)" << std::endl;
-	while (1) {
+	//std::thread receiver(tcpreceive, 14000, std::ref(q));
+	//std::cout << "With who will you chat this session?" << std::endl;
+	//std::cin >> DestinationIP;
+	//std::cout << "Say something! (or I'm giving up on you.)" << std::endl;
+	//while (1) {
 
-		std::getline(std::cin, Message);
-		std::cout << "You: " << Message << std::endl;
-		sendMessage(DestinationIP, DestinationIP, Message);
+	//	std::getline(std::cin, Message);
+	//	std::cout << "You: " << Message << std::endl;
+	//	sendMessage(DestinationIP, DestinationIP, Message);
 		//std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		//std::string message = q.pop();
 		//std::cout << message << std::endl;
-	}
+	//}
 
 }
