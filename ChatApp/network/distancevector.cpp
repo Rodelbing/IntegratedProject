@@ -45,6 +45,8 @@ void init(){
 void start(vector<tableEntry> *inputTable){
 	myTablePtr = inputTable;
 	init();
+	string sendStr = vectorToString(*myTablePtr);
+	multisend(14000, "228.1.2.3", getIP(), sendStr);
 	std::thread receiver(multireceive, 14000, "228.1.2.3", getIP(),std::ref(q));
 	while(true){
 		std::string message;
@@ -52,7 +54,7 @@ void start(vector<tableEntry> *inputTable){
 			routing(message);
 		}
 		//send
-		string sendStr = vectorToString(*myTablePtr);
+		sendStr = vectorToString(*myTablePtr);
 		multisend(14000, "228.1.2.3", getIP(), sendStr);
 		sleep(1);
 		printTable(*myTablePtr);
