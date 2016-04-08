@@ -123,7 +123,7 @@ void printTable(vector<tableEntry> dus){
  for(auto& items: dus){
 	 cout<<items.dest<<" voor fuck sake thom "<<items.via<<endl;
  	 }
- 	 cout<<"End table."<<endl;
+ 	 cout<<"<-End table->"<<endl;
 
 }
 
