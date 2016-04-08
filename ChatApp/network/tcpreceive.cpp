@@ -16,6 +16,7 @@
 #include <sys/socket.h>
 #include <sys/types.h>
 #include "getIP.h"
+#include "analyzeTCPpacket.h"
 #include "../lib/BlockingQueue.h"
 #define BUFSIZE 2048
 
@@ -71,8 +72,8 @@ int tcpreceive(int PORT, BlockingQueue<std::string> &q){						// function to rec
 			}
 
 			q.push(std::string(buf, static_cast<int>(recvlen)));				// pushed message onto the blockingqueue
-			std::cout <<  foreignIP << ": " << buf << std::endl;					// prints sender and message
-
+			//std::cout <<  foreignIP << ": " << buf << std::endl;					// prints sender and message
+			analyzeTCP(buf);
 			}
 
 
