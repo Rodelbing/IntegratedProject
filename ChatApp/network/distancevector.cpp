@@ -45,7 +45,7 @@ void init(){
 void start(vector<tableEntry> *inputTable){
 	myTablePtr = inputTable;
 	init();
-	//std::thread receiver(multirecieve, 14000, "228.1.2.3", "192.168.5.4",std::ref(q));
+	std::thread receiver(multireceive, 14000, "228.1.2.3", getIP(),std::ref(q));
 	while(true){
 		std::string message;
 		while(message==q.pop()){
