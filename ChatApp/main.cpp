@@ -21,5 +21,10 @@ int main() {
 	std::string Message;
 	vector<tableEntry> fwdTable;
 	std::thread routing(start, &fwdTable);
+	//std::thread test(multireceive ,14000, "228.1.2.3", MyIP, std::ref(q));
+
+	while(1){
+
+	}
 
 }
