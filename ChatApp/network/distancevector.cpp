@@ -31,7 +31,7 @@ struct tableEntry{
 void printTable(vector<tableEntry>);
 vector<tableEntry> stringToVector(string receivedString);
 string vectorToString(vector<tableEntry> myTablePtr);
-vector<tableEntry> *myTablePtr;
+vector<tableEntry> *myTablePtr = nullptr;
 void routing(string);
 BlockingQueue<std::string> x;
 
@@ -63,15 +63,16 @@ void start(vector<tableEntry> *inputTable){
 
 void routing(string recStr) {
 	vector<tableEntry> receivedTable = stringToVector(recStr);
+	std::cout << "routing! " << receivedTable.size() << std::endl;
 	for(auto& itema: receivedTable){
 		bool add = true;
-		for(auto itemb: *myTablePtr){
+		std::cout << "BEGIN" << std::endl;
+		printTable(*myTablePtr);
+		std::cout << "END" << std::endl;
+		for(auto& itemb: *myTablePtr){
 			if(itema.dest == itemb.dest){
 				add = false;
-				std::cout << "" << itema.dest << ", " << itemb.dest << std::endl;
-			}else{
-				std::cout << itema.dest << ", " << itemb.dest << std::endl;
-			}
+				}
 			if(itema.dest == itemb.dest && itemb.dest != itemb.via && itema.dest == itema.via){
 				itemb.via = itema.via;
 			}
@@ -108,36 +109,9 @@ vector<tableEntry> stringToVector(string receivedString) {
 	  tableEntry tmp;
 	  tmp.dest = receivedString.substr(i+1, 11);
 	  tmp.via = receivedString.substr(i+13, 11);
-	  myTablePtr->push_back(tmp);
+	  tempTable.push_back(tmp);
 	  }
 	}
-	/*for(unsigned int i = 0; i<receivedString.length(); i++) {
-	    if(receivedString[i]=='_'){
-	    	for(unsigned int j = i+1; j<receivedString.length(); j++) {
-	    		if(receivedString[j]=='-'){
-	    			for(unsigned int k = i+1; k<j; k++){
-	    				tempDest += receivedString[k];
-	    				//std::cout << tempDest << std::endl;
-	    			}
-	    			for(unsigned int l = j+1; l<receivedString.length(); l++){
-	    				if(receivedString[l]=='/'){
-	    	    			for(unsigned int m = j+1; m<l; m++){
-	    	    				tempVia += receivedString[m];
-	    	    			}
-	    				}
-	    			}
-	    		}
-	    	}
-	    	tableEntry temp;
-	    	temp.dest = tempDest;
-	    	temp.via = tempVia;
-	    	tempTable.push_back(temp);
-	    	tempDest="";
-	    	tempVia="";
-	    }
-	}*/
-
-
 	return tempTable;
 }
 
