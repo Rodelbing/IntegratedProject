@@ -55,13 +55,12 @@ void start(vector<tableEntry> *inputTable){
 
 void routing(string recStr) {
 	vector<tableEntry> receivedTable = stringToVector(recStr);
-	for(auto& itema: receivedTable){		//ostringstream convert1;
-		//convert1 << items.dest;
-		//Dest = convert1.str();
+	for(auto& itema: receivedTable){
 		bool add = true;
-
+		bool update = false;
 		for(auto& itemb: *myTablePtr){
 			if(itema.dest == itemb.dest) add = false;
+			if(itema.dest == itemb.dest && itemb.dest != itemb.via && itema.dest == itema.via)update = true;
 		}
 
 		if(add)myTablePtr->push_back(itema);
@@ -76,7 +75,6 @@ string vectorToString(vector<tableEntry> myTablePtr) {
 	for(auto& items : myTablePtr){
 		string Dest = items.dest;
 		string Via = items.via;
-
 		myString += "_";
 		myString += Dest;
 		myString += "-";
