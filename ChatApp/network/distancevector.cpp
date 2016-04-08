@@ -31,7 +31,7 @@ void printTable(vector<tableEntry>);
 vector<tableEntry> stringToVector(string receivedString);
 string vectorToString(vector<tableEntry> myTablePtr);
 vector<tableEntry> *myTablePtr;
-void routing(string, string);
+void routing(string);
 BlockingQueue<std::string> x, y;
 
 void init(){
@@ -50,10 +50,7 @@ void start(vector<tableEntry> *inputTable){
 	while(true){
 		std::string message;
 		while((message=x.pop()).size()>0){
-			std::string senderIP;
-			senderIP = y.pop();
-			std::cout << senderIP << std::endl;
-			routing(message, senderIP);
+			routing(message);
 		}
 		//send
 		sendStr = vectorToString(*myTablePtr);
@@ -63,17 +60,22 @@ void start(vector<tableEntry> *inputTable){
 	}
 }
 
-void routing(string recStr, string senderIP) {
+void routing(string recStr) {
+	string senderIP;
 	vector<tableEntry> receivedTable = stringToVector(recStr);
+	bool first = true;
 	for(auto& itema: receivedTable){
+
+		if(first){
+			senderIP = itema.dest;
+			first = false;
+		}
+
 		bool add = true;
 		for(auto& itemb: *myTablePtr){
 			if(itema.dest == itemb.dest){
 				add = false;
 				}
-			if(itema.dest == itemb.dest && itemb.dest != itemb.via && itema.dest == itema.via){
-				itemb.via = itema.via;
-			}
 		}
 
 		if(add){

@@ -66,9 +66,8 @@ int multireceive(int PORT, std::string group, std::string ip,  BlockingQueue<std
 			//std::cout << "received bytes: " << recvlen << std::endl;
 			if (recvlen > 0) {													// if bytes available push them to the BlockingQueue
 				foreignIP = inet_ntoa(peer_address.sin_addr);					// stores IP of sender
-				std::cout << foreignIP << std::endl;
-				q.push(std::string(buf, recvlen));
 				foreign.push(std::string(foreignIP, foreignIP.size()));
+				q.push(std::string(buf, recvlen));
 			}
 
 		}
