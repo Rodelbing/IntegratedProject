@@ -85,22 +85,38 @@ string vectorToString(vector<tableEntry> myTablePtr) {
 		myString += Dest;
 		myString += "-";
 		myString += Via;
-		myString += "/";
+		std::cout << myString << std::endl;
 	};
 	return myString;
 }
 
 vector<tableEntry> stringToVector(string receivedString) {
 	vector<tableEntry> tempTable;
-	string tempDest;
+	size_t Pos;
+	size_t finePos;
+	vector<std::string> routes;
 	string tempVia;
+	int Counter=0;
 
-	for(unsigned int i = 0; i<receivedString.length(); i++) {
+	Pos = receivedString.find("_");
+	receivedString.erase(0, Pos);
+	while(Pos = receivedString.find("_") != std::string::npos){
+		routes[Counter] = receivedString.substr(0, Pos);
+			finePos = routes[Counter].find("-");
+			tableEntry temp;
+			temp.dest = routes[Counter].substr(0,finePos);
+			temp.via = routes[Counter].substr(finePos,routes[Counter].size()-finePos);
+			tempTable.push_back(temp);
+		receivedString.erase(0, Pos);
+		Counter++;
+	}
+	/*for(unsigned int i = 0; i<receivedString.length(); i++) {
 	    if(receivedString[i]=='_'){
 	    	for(unsigned int j = i+1; j<receivedString.length(); j++) {
 	    		if(receivedString[j]=='-'){
 	    			for(unsigned int k = i+1; k<j; k++){
 	    				tempDest += receivedString[k];
+	    				//std::cout << tempDest << std::endl;
 	    			}
 	    			for(unsigned int l = j+1; l<receivedString.length(); l++){
 	    				if(receivedString[l]=='/'){
@@ -118,7 +134,9 @@ vector<tableEntry> stringToVector(string receivedString) {
 	    	tempDest="";
 	    	tempVia="";
 	    }
-	}
+	}*/
+
+
 	return tempTable;
 }
 
