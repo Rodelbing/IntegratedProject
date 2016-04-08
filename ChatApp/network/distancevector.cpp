@@ -57,10 +57,9 @@ void routing(string recStr) {
 	vector<tableEntry> receivedTable = stringToVector(recStr);
 	for(auto& itema: receivedTable){
 		bool add = true;
-		bool update = false;
 		for(auto& itemb: *myTablePtr){
 			if(itema.dest == itemb.dest) add = false;
-			if(itema.dest == itemb.dest && itemb.dest != itemb.via && itema.dest == itema.via)update = true;
+			if(itema.dest == itemb.dest && itemb.dest != itemb.via && itema.dest == itema.via)itemb.via = itema.via;
 		}
 
 		if(add)myTablePtr->push_back(itema);
