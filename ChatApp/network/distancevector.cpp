@@ -37,8 +37,8 @@ BlockingQueue<std::string> x;
 
 void init(){
 	tableEntry self;
-	self.dest = "192.168.5.4";
-	self.via = "192.168.5.4";
+	self.dest = getIP();
+	self.via = getIP();
 	myTablePtr->push_back(self);
 }
 
