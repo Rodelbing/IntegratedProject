@@ -47,9 +47,14 @@ void start(vector<tableEntry> *inputTable){
 	init();
 	//std::thread receiver(multirecieve, 14000, "228.1.2.3", "192.168.5.4",std::ref(q));
 	while(true){
-		std::string message = q.pop();
-		routing(message);
-		//sleep(1)
+		std::string message;
+		while(message==q.pop()){
+			routing(message);
+		}
+		//send
+		string sendStr = vectorToString(*myTablePtr);
+		multisend(14000, "228.1.2.3", getIP(), sendStr);
+		sleep(1);
 	}
 }
 
@@ -64,13 +69,12 @@ void routing(string recStr) {
 
 		if(add)myTablePtr->push_back(itema);
 	}
-	string sendStr = vectorToString(*myTablePtr);
-	//send string;
 
 }
 
 string vectorToString(vector<tableEntry> myTablePtr) {
 	string myString;
+	myString += "Routing+";
 	for(auto& items : myTablePtr){
 		string Dest = items.dest;
 		string Via = items.via;
