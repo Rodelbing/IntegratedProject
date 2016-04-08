@@ -3,7 +3,7 @@
  *
  *  Created on: 7 apr. 2016
  *      Author: thomleemans
-
+*/
 
 #include <iostream>
 #include <vector>
@@ -125,4 +125,4 @@ void printTable(vector<tableEntry> dus){
 
 
 }
-*/
+
