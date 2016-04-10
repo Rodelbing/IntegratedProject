@@ -1,3 +1,5 @@
+//GUI? zie SFML
+
 #include <thread>
 #include <cstring>
 #include <unistd.h>
