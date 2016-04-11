@@ -71,11 +71,13 @@ string decypher(string input, int key){
 		int k = -1;
 		for(int i =0; i<input.size();i++){
 			if(input[i] == '-'){
-				output += hexInt_to_string(Cypher(hexStr_to_int(input.substr((k+1),(i-k))), key));
+				string tmp = hexInt_to_string(Cypher(hexStr_to_int(input.substr(k+1, (i+1-k))), key));
+				output += tmp;
 				k = i;
 			}
 		}
-		output += hexInt_to_string(Cypher(hexStr_to_int(input.substr(k+1, (input.size()-k))), key));
+		string tmp = hexInt_to_string(Cypher(hexStr_to_int(input.substr(k+1, (input.size()-k+1))), key));
+		output += tmp;
 	}
 	return hex_to_string(output);
 }
