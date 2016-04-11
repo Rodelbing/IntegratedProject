@@ -30,13 +30,14 @@ string vectorToString(vector<tableEntry> myTablePtr);
 vector<tableEntry> *myTablePtr;
 void routing(string);
 BlockingQueue<std::string> x, y;
-void updateTimetable(vector<tableEntry>);
+void updateTimetable(vector<tableEntry>*);
 
 
 void init(){
 	tableEntry self;
 	self.dest = getIP();
 	self.via = getIP();
+	self.time = 5;
 	myTablePtr->push_back(self);
 }
 
@@ -54,8 +55,9 @@ void start(vector<tableEntry> *inputTable){
 		//send
 		sendStr = vectorToString(*myTablePtr);
 		multisend(14000, "228.1.2.3", getIP(), sendStr);
+		updateTimetable(myTablePtr);
 		printTable(*myTablePtr);
-		updateTimetable(*myTablePtr);
+
 		sleep(1);
 	}
 }
@@ -84,13 +86,16 @@ void routing(string recStr) {
 			tableEntry tmp;
 			tmp.dest = itema.dest;
 			tmp.via = senderIP;
-			tmp.time = 3;
+			tmp.time = 5;
 			myTablePtr->push_back(tmp);
 
 		}
 		if(update){
 			for(auto& items: *myTablePtr){
-				if(itema.dest == items.dest){items.via = itema.via; items.time = 3;}
+				if(itema.dest == items.dest){
+					items.via = itema.via;
+				}
+				items.time = 5;
 			}
 		}
 	}
@@ -135,18 +140,32 @@ vector<tableEntry> stringToVector(string receivedString) {
 
 void printTable(vector<tableEntry> dus){
  for(auto& items: dus){
-	// cout<<items.dest<<" VIA "<<items.via << " FOR ANOTHER " << items.time << "sec" << endl;
+	 cout<<items.dest<<" VIA "<<items.via << " FOR ANOTHER " << items.time << "sec" << endl;
  	 }
- 	// cout<<"<-End table->"<<endl;
+ 	 cout<<"<-End table->"<<endl;
 
 }
 
-void updateTimetable(vector<tableEntry> dus){
-	for(auto& item: dus) {
-		item.time = item.time - 1;
-		if(item.time == 0){
-			dus.erase(dus.begin());
+void updateTimetable(vector<tableEntry> *dus){
+	for(vector<tableEntry>::iterator i = dus->begin(); i != dus->end();)
+	{
+		tableEntry &item = (*i);
+		if(!(item.dest==getIP()))item.time -= 1;
+
+		vector<tableEntry>::iterator next_i = i;
+		++next_i;
+
+		if(item.time < 1)
+		{
+			if (item.dest != getIP()){
+				cout << "delete!" << endl;
+				tableEntry *ptr = &item;
+				next_i = dus->erase(i);
+
+			}
 		}
+
+		i = next_i;
 	}
 };
 
