@@ -19,8 +19,8 @@ int hexStr_to_int(string);
 string hexInt_to_string(int);
 
 int privateKey = 80085;
-int base = 66666666;
-int mod = 99999999;
+int base = 66;
+int mod = 99;
 
 string encrypt(string input, int key){
 	int secretKey = abs(key^privateKey%mod);
