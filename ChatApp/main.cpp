@@ -32,7 +32,7 @@ int main() {
 	std::cout << "Say something: " << std::endl;
 	while(1){
 		std::getline(std::cin, Message);
-		sendMessage(DestinationIP, DestinationIP, Message);
+		sendMessage(DestinationIP, getNextHop(DestinationIP), Message);
 		std::cout << getNextHop(DestinationIP) << std::endl;
 	}
 
