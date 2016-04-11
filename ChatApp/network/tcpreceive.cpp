@@ -75,7 +75,7 @@ int tcpreceive(int PORT, BlockingQueue<std::string> &q, vector<tableEntry> *inpu
 
 			q.push(std::string(buf, static_cast<int>(recvlen)));				// pushed message onto the blockingqueue
 			//std::cout <<  foreignIP << ": " << buf << std::endl;					// prints sender and message
-			analyzeTCP(buf, *inputTable);
+			analyzeTCP(decrypt(buf,getPublicKey()), *inputTable);
 			}
 
 
