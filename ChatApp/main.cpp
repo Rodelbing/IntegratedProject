@@ -4,7 +4,7 @@
 #include <cstring>
 #include <unistd.h>
 #include <vector>
-
+#include "lib/Includes.h"
 #include "network/getIP.h"
 #include "network/multisend.h"
 #include "network/multisend.h"
@@ -18,31 +18,22 @@
 static BlockingQueue<std::string> q;
 vector<tableEntry> fwdTable;
 
-string getNextHop(string);
-
 int main() {
 	std::string DestinationIP;
 	std::string MyIP = getIP();
 	std::string Message;
 	std::thread routing(start, &fwdTable);
-	std::thread test(tcpreceive ,6969, std::ref(q));
+	std::thread test(tcpreceive ,6969, std::ref(q), &fwdTable);
 
 	std::cout << "Destination IP" << std::endl;
 	std::cin >> DestinationIP;
 	std::cout << "Say something: " << std::endl;
 	while(1){
 		std::getline(std::cin, Message);
-		sendMessage(DestinationIP, getNextHop(DestinationIP), Message);
-		std::cout << getNextHop(DestinationIP) << std::endl;
+		sendMessage(DestinationIP, getNextHop(DestinationIP, fwdTable), Message);
+		//std::cout << getNextHop(DestinationIP) << std::endl;
 	}
 
 }
 
-string getNextHop(string dest){
-	string output = "";
-	for(auto& items: fwdTable){
-		if(items.dest == dest)output=items.via;
-	}
-	return output;
-}
 

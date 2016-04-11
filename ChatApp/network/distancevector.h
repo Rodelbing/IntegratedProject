@@ -7,12 +7,9 @@
 
 #include <vector>
 #include <string>
-
+#include "../lib/Includes.h"
 using namespace std;
 
-struct tableEntry{
-		string dest;
-		string via;
-	};
+
 
 void start(vector<tableEntry>*);

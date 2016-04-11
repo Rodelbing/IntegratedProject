@@ -6,5 +6,5 @@
  */
 
 #include "../lib/BlockingQueue.h"
-
-int tcpreceive(int PORT,  BlockingQueue<std::string> &q);
+#include "../lib/Includes.h"
+int tcpreceive(int PORT,  BlockingQueue<std::string> &q, vector<tableEntry> *inputTable);

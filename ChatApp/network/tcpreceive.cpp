@@ -18,6 +18,7 @@
 #include "getIP.h"
 #include "analyzeTCPpacket.h"
 #include "../lib/BlockingQueue.h"
+#include "../lib/Includes.h"
 #define BUFSIZE 8192
 
 
@@ -43,7 +44,7 @@ int makeTCPsocket(int PORT, std::string ip){									// function to make tcp soc
 
 }
 
-int tcpreceive(int PORT, BlockingQueue<std::string> &q){						// function to receive, set port and blocking queue to store message
+int tcpreceive(int PORT, BlockingQueue<std::string> &q, vector<tableEntry> *inputTable){			// function to receive, set port and blocking queue to store message
 
 	std::string foreignIP;														// string to save IP of client that sent the message
 	int pack = makeTCPsocket(PORT, getIP());									// call function to create socket and store it
@@ -73,7 +74,7 @@ int tcpreceive(int PORT, BlockingQueue<std::string> &q){						// function to rec
 
 			q.push(std::string(buf, static_cast<int>(recvlen)));				// pushed message onto the blockingqueue
 			//std::cout <<  foreignIP << ": " << buf << std::endl;					// prints sender and message
-			analyzeTCP(buf);
+			analyzeTCP(buf, *inputTable);
 			}
 
 
