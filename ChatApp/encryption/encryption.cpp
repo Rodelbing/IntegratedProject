@@ -76,7 +76,7 @@ string decypher(string input, int key){
 				k = i;
 			}
 		}
-		string tmp = hexInt_to_string(Cypher(hexStr_to_int(input.substr(k+1, (input.size()-k+1))), key));
+		string tmp = hexInt_to_string(Cypher(hexStr_to_int(input.substr(k+1, (input.size()-k))), key));
 		output += tmp;
 	}
 	return hex_to_string(output);
