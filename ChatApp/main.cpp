@@ -33,7 +33,7 @@ int main() {
 	while(1){
 
 		std::getline(std::cin, Message);
-		sendMessage(DestinationIP, DestinationIP, Message);
+		sendMessage(DestinationIP, getNextHop(DestinationIP), Message);
 
 	}
 
