@@ -61,7 +61,7 @@ int multireceive(int PORT, std::string group, std::string ip,  BlockingQueue<std
 	peer_address_len = sizeof(struct sockaddr_storage);
 
 	while(true){																// while loop to keep receiving
-			std::cout << "waiting on port " << PORT << std::endl;
+			//std::cout << "waiting on port " << PORT << std::endl;
 			recvlen = recvfrom(pack, buf, BUFSIZE, 0, (struct sockaddr *)&peer_address, &peer_address_len);	//actual receiving mechanism, returns amount of bytes received
 			//std::cout << "received bytes: " << recvlen << std::endl;
 			if (recvlen > 0) {													// if bytes available push them to the BlockingQueue
