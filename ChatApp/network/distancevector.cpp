@@ -30,6 +30,8 @@ string vectorToString(vector<tableEntry> myTablePtr);
 vector<tableEntry> *myTablePtr;
 void routing(string);
 BlockingQueue<std::string> x, y;
+void updateTimetable(vector<tableEntry>);
+
 
 void init(){
 	tableEntry self;
@@ -53,6 +55,7 @@ void start(vector<tableEntry> *inputTable){
 		sendStr = vectorToString(*myTablePtr);
 		multisend(14000, "228.1.2.3", getIP(), sendStr);
 		printTable(*myTablePtr);
+		updateTimetable(*myTablePtr);
 		sleep(1);
 	}
 }
@@ -81,12 +84,13 @@ void routing(string recStr) {
 			tableEntry tmp;
 			tmp.dest = itema.dest;
 			tmp.via = senderIP;
+			tmp.time = 3;
 			myTablePtr->push_back(tmp);
 
 		}
 		if(update){
 			for(auto& items: *myTablePtr){
-				if(itema.dest == items.dest)items.via = itema.via;
+				if(itema.dest == items.dest){items.via = itema.via; items.time = 3;}
 			}
 		}
 	}
@@ -131,9 +135,18 @@ vector<tableEntry> stringToVector(string receivedString) {
 
 void printTable(vector<tableEntry> dus){
  for(auto& items: dus){
-	// cout<<items.dest<<" VIA "<<items.via<<endl;
+	 cout<<items.dest<<" VIA "<<items.via << " FOR ANOTHER " << items.time << "sec" << endl;
  	 }
- 	 //cout<<"<-End table->"<<endl;
+ 	 cout<<"<-End table->"<<endl;
 
 }
+
+void updateTimetable(vector<tableEntry> dus){
+	for(auto& item: dus) {
+		item.time = item.time - 1;
+		if(item.time == 0){
+			dus.erase(dus.begin());
+		}
+	}
+};
 
