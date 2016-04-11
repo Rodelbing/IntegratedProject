@@ -23,13 +23,15 @@ int main() {
 	std::string Message;
 	vector<tableEntry> fwdTable;
 	std::thread routing(start, &fwdTable);
-	//std::thread test(tcpreceive ,14000, std::ref(q));
-	//std::cin >> DestinationIP;
-	//while(1){
-	//std::getline(std::cin, Message);
-	//sendMessage(DestinationIP, DestinationIP, Message);
-	//}
+	std::thread test(tcpreceive ,6969, std::ref(q));
+
+	std::cout << "Destination IP" << std::endl;
+	std::cin >> DestinationIP;
+	std::cout << "Say something: " << std::endl;
 	while(1){
+
+		std::getline(std::cin, Message);
+		sendMessage(DestinationIP, DestinationIP, Message);
 
 	}
 

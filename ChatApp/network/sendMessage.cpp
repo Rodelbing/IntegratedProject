@@ -4,7 +4,7 @@
 int sendMessage(std::string DestinationIP, std::string NextHop, std::string Message){
 	std::string FullMessage = getIP() + "+" + DestinationIP + "+MSG+" + Message;
 	//std::cout << FullMessage << std::endl;
-	tcpsend(14000, NextHop, FullMessage);
+	tcpsend(6969, NextHop, FullMessage);
 
 
 	return 0;
