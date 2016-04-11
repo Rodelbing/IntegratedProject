@@ -72,9 +72,11 @@ void routing(string recStr) {
 		}
 
 		bool add = true;
+		bool update = false;
 		for(auto& itemb: *myTablePtr){
-			if(itema.dest == itemb.dest){
+			if(itema.dest == itemb.dest || itema.via == getIP()){
 				add = false;
+				update = (itema.dest == itema.via && itema.via!=itemb->via);
 				}
 		}
 
@@ -84,6 +86,11 @@ void routing(string recStr) {
 			tmp.via = senderIP;
 			myTablePtr->push_back(tmp);
 
+		}
+		if(update){
+			for(auto& items: *myTablePtr){
+				if(itema.dest == items.dest)items.via = itema.via;
+			}
 		}
 	}
 
