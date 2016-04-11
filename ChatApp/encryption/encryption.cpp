@@ -42,6 +42,7 @@ return base^privateKey%mod;
 
 string encypher(string input, int key){
 	string hexStr =string_to_hex(input);
+	cout<<hexStr<<endl;
 	string output = "";
 	if(hexStr.size()<=8){
 		int hexInt = hexStr_to_int(hexStr);
@@ -59,25 +60,31 @@ string encypher(string input, int key){
 		int hexInt = hexStr_to_int(hexStr.substr(last_i,(hexStr.size()-last_i)));
 		int enHexInt = Cypher(hexInt, key);
 		output += hexInt_to_string(enHexInt);
+
 	}
 	return output;
+
 }
+
 
 string decypher(string input, int key){
 	string output="";
 	if(input.size()<=8){
-		output = hex_to_string(hexInt_to_string(Cypher(hexStr_to_int(input), key)));
+		output = hexInt_to_string(Cypher(hexStr_to_int(input), key));
 	}else{
 		int k = -1;
 		for(int i =0; i<input.size();i++){
 			if(input[i] == '-'){
 				string tmp = hexInt_to_string(Cypher(hexStr_to_int(input.substr(k+1, (i+1-k))), key));
+				cout<<tmp;
 				output += tmp;
 				k = i;
 			}
 		}
-		string tmp = hexInt_to_string(Cypher(hexStr_to_int(input.substr(k+1, (input.size()-k))), key));
+		string tmp = hexInt_to_string(Cypher(hexStr_to_int(input.substr(k+1, (input.size()-k+1))), key));
+		cout<<tmp;
 		output += tmp;
+
 	}
 	return hex_to_string(output);
 }
