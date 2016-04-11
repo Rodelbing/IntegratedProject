@@ -14,6 +14,7 @@
 #include "network/multireceive.h"
 #include "network/sendMessage.h"
 #include "network/distancevector.h"
+#include "encryption/encryption.h"
 
 static BlockingQueue<std::string> q;
 vector<tableEntry> fwdTable;

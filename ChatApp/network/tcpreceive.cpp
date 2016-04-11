@@ -19,6 +19,7 @@
 #include "analyzeTCPpacket.h"
 #include "../lib/BlockingQueue.h"
 #include "../lib/Includes.h"
+#include "../encryption/encryption.h"
 #define BUFSIZE 8192
 
 
@@ -72,9 +73,9 @@ int tcpreceive(int PORT, BlockingQueue<std::string> &q, vector<tableEntry> *inpu
 				perror("reading error!");
 			}
 
-			q.push(std::string(buf, static_cast<int>(recvlen)));				// pushed message onto the blockingqueue
+			q.push(std::string(decrypt(buf,getPublicKey()), static_cast<int>(recvlen)));				// pushed message onto the blockingqueue
 			//std::cout <<  foreignIP << ": " << buf << std::endl;					// prints sender and message
-			analyzeTCP(buf, *inputTable);
+			analyzeTCP(decrypt(buf,getPublicKey()), *inputTable);
 			}
 
 
