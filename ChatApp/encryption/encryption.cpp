@@ -19,6 +19,7 @@ int hexStr_to_int(string);
 string hexInt_to_string(int);
 
 int privateKey = 80085;
+//static
 int base = 66;
 int mod = 99;
 
