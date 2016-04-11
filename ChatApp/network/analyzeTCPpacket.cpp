@@ -1,7 +1,11 @@
 #include "getIP.h"
 #include "sendMessage.h"
 #include <iostream>
-int analyzeTCP(std::string Packet){
+#include <vector>
+#include <string>
+#include "../lib/Includes.h"
+
+int analyzeTCP(std::string Packet, std::vector <tableEntry> inputTable){
 	std::string SplitMessage[4];
 	std::string Delimiter = "+";
 	size_t Pos = 0;
@@ -21,8 +25,10 @@ if(SplitMessage[1] == getIP()){		// If this message is directed to me:
 		std::cout << SplitMessage[1] << ": " << SplitMessage[3] << std::endl;
 	}
 }else{								// Elsewise forward it
-	sendMessage(SplitMessage[0], SplitMessage[0], SplitMessage[3]);
+	sendMessage(SplitMessage[0], getNextHop(SplitMessage[0], inputTable), SplitMessage[3]);
 }
 
 	return 0;
 }
+
+

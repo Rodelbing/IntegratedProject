@@ -20,12 +20,9 @@
 #include "tcpsend.h"
 #include "tcpreceive.h"
 #include "../lib/BlockingQueue.h"
-
+#include "../lib/Includes.h"
 using namespace std;
-struct tableEntry{
-		string dest;
-		string via;
-	};
+
 
 void printTable(vector<tableEntry>);
 vector<tableEntry> stringToVector(string receivedString);
