@@ -42,7 +42,6 @@ return base^privateKey%mod;
 
 string encypher(string input, int key){
 	string hexStr =string_to_hex(input);
-	cout<<hexStr<<endl;
 	string output = "";
 	if(hexStr.size()<=8){
 		int hexInt = hexStr_to_int(hexStr);
