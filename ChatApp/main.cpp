@@ -31,7 +31,8 @@ int main() {
 	std::cout << "Say something: " << std::endl;
 	while(1){
 		std::getline(std::cin, Message);
-		sendMessage( DestinationIP, getNextHop(DestinationIP, fwdTable), Message );
+		std::cout << "Shit:" << Message<< Message<< Message<< Message<< Message << std::endl;
+		sendMessage( DestinationIP, getNextHop(DestinationIP, fwdTable), encrypt(Message,getPublicKey()));
 		//std::cout << getNextHop(DestinationIP) << std::endl;
 	}
 
