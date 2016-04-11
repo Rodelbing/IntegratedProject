@@ -16,12 +16,14 @@
 #include "network/distancevector.h"
 
 static BlockingQueue<std::string> q;
+vector<tableEntry> fwdTable;
+
+string getNextHop(string);
 
 int main() {
 	std::string DestinationIP;
 	std::string MyIP = getIP();
 	std::string Message;
-	vector<tableEntry> fwdTable;
 	std::thread routing(start, &fwdTable);
 	//std::thread test(tcpreceive ,14000, std::ref(q));
 	//std::cin >> DestinationIP;
@@ -34,3 +36,12 @@ int main() {
 	}
 
 }
+
+string getNextHop(string dest){
+	string output = "";
+	for(auto& items: fwdTable){
+		if(items.dest == dest)output=items.via;
+	}
+	return output;
+}
+
