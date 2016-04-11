@@ -3,9 +3,6 @@
 #include <iostream>
 
 int sendMessage(std::string DestinationIP, std::string NextHop, std::string Message){
-	if (Message.size()==0){
-		Message = getIP() + " is connected to you.";
-	}
 	std::string FullMessage = getIP() + "+" + DestinationIP + "+MSG+" + Message;
 	//std::cout << FullMessage << std::endl;
 	tcpsend(6969, NextHop, FullMessage);

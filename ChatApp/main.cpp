@@ -31,8 +31,12 @@ int main() {
 	std::cout << "Say something: " << std::endl;
 	while(1){
 		std::getline(std::cin, Message);
-		std::cout << "Shit:" << Message<< Message<< Message<< Message<< Message << std::endl;
-		sendMessage( DestinationIP, getNextHop(DestinationIP, fwdTable), encrypt(Message,getPublicKey()));
+		if (Message.size()==0){
+			Message = getIP() + " is connected to you.";
+		}
+		//sendMessage( DestinationIP, getNextHop(DestinationIP, fwdTable), encrypt(Message,getPublicKey()));
+		string Hoi = encrypt(Message,getPublicKey());
+		std:: cout << Hoi << ", " << decrypt(Hoi, getPublicKey()) << std::endl;
 		//std::cout << getNextHop(DestinationIP) << std::endl;
 	}
 
