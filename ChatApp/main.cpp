@@ -25,7 +25,7 @@ int main() {
 	std::string MyIP = getIP();
 	std::string Message;
 	std::thread routing(start, &fwdTable);
-	std::thread test(tcpreceive ,6969, std::ref(q));
+	std::thread test(tcpreceive ,6968, std::ref(q));
 
 	std::cout << "Destination IP" << std::endl;
 	std::cin >> DestinationIP;
