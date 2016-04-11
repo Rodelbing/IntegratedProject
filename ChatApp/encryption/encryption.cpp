@@ -43,18 +43,18 @@ return base^privateKey%mod;
 string encypher(string input, int key){
 	string hexStr =string_to_hex(input);
 	string output = "";
-	if(hexStr.size()<=11){
+	if(hexStr.size()<=7){
 		int hexInt = hexStr_to_int(hexStr);
 		int enHexInt = Cypher(hexInt, key);
 		output = hexInt_to_string(enHexInt);
 	}else{
 		int last_i;
-		for(int i = 0; i< (hexStr.size() -11); i+=11){
-			int hexInt = hexStr_to_int(hexStr.substr(i,11));
+		for(int i = 0; i< (hexStr.size() -7); i+=7){
+			int hexInt = hexStr_to_int(hexStr.substr(i,7));
 			int enHexInt = Cypher(hexInt, key);
 			output += hexInt_to_string(enHexInt);
 			output += "-";
-			last_i = i + 11;
+			last_i = i + 7;
 		}
 		int hexInt = hexStr_to_int(hexStr.substr(last_i,(hexStr.size()-last_i)));
 		int enHexInt = Cypher(hexInt, key);
@@ -65,19 +65,19 @@ string encypher(string input, int key){
 
 string decypher(string input, int key){
 	string output="";
-	if(input.size()<=11){
+	if(input.size()<=7){
 		output = hex_to_string(hexInt_to_string(Cypher(hexStr_to_int(input), key)));
 	}else{
 		int k = -1;
 		for(int i =0; i<input.size();i++){
 			if(input[i] == '-'){
-				output += hex_to_string(hexInt_to_string(Cypher(hexStr_to_int(input.substr((k+1),(i-k))), key)));
+				output += hexInt_to_string(Cypher(hexStr_to_int(input.substr((k+1),(i-k))), key));
 				k = i;
 			}
 		}
-		output += hex_to_string(hexInt_to_string(Cypher(hexStr_to_int(input.substr(k+1, (input.size()-k))), key)));
+		output += hexInt_to_string(Cypher(hexStr_to_int(input.substr(k+1, (input.size()-k))), key));
 	}
-	return output;
+	return hex_to_string(output);
 }
 
 int hexStr_to_int(string input){
