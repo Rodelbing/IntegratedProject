@@ -5,6 +5,7 @@
  *      Author: nahuel
  */
 #include <vector>
+#include <string>
 #ifndef LIB_INCLUDES_H_
 #define LIB_INCLUDES_H_
 
