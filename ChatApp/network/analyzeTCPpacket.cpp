@@ -2,7 +2,6 @@
 #include "sendMessage.h"
 #include <iostream>
 int analyzeTCP(std::string Packet){
-
 	std::string SplitMessage[4];
 	std::string Delimiter = "+";
 	size_t Pos = 0;
@@ -17,7 +16,7 @@ int analyzeTCP(std::string Packet){
 	SplitMessage[Counter] = Packet;
 	//std::cout << SplitMessage[Counter] << std::endl;
 
-if(SplitMessage[0] == getIP()){		// If this message is directed to me:
+if(SplitMessage[1] == getIP()){		// If this message is directed to me:
 	if(SplitMessage[2] == "MSG"){
 		std::cout << SplitMessage[1] << ": " << SplitMessage[3] << std::endl;
 	}
