@@ -20,8 +20,8 @@ string hexInt_to_string(int);
 
 int privateKey = 80085;
 //static
-int base = 66;
-int mod = 99;
+int base = 66666666;
+int mod = 99999999;
 
 string encrypt(string input, int key){
 	int secretKey = abs(key^privateKey%mod);
@@ -42,7 +42,6 @@ return base^privateKey%mod;
 
 string encypher(string input, int key){
 	string hexStr =string_to_hex(input);
-	cout<<hexStr<<endl;
 	string output = "";
 	if(hexStr.size()<=8){
 		int hexInt = hexStr_to_int(hexStr);
@@ -76,13 +75,11 @@ string decypher(string input, int key){
 		for(int i =0; i<input.size();i++){
 			if(input[i] == '-'){
 				string tmp = hexInt_to_string(Cypher(hexStr_to_int(input.substr(k+1, (i+1-k))), key));
-				cout<<tmp;
 				output += tmp;
 				k = i;
 			}
 		}
 		string tmp = hexInt_to_string(Cypher(hexStr_to_int(input.substr(k+1, (input.size()-k+1))), key));
-		cout<<tmp;
 		output += tmp;
 
 	}
@@ -101,8 +98,8 @@ string hexInt_to_string(int input){
 }
 
 
-int Cypher(int input, int keys){
-	return input^keys;
+int Cypher(int input, int key){
+	return input^key;
 }
 
 std::string string_to_hex(const std::string& input)
