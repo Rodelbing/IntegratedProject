@@ -66,37 +66,51 @@ void routing(string recStr) {
 	string senderIP;
 	vector<tableEntry> receivedTable = stringToVector(recStr);
 	bool first = true;
-	for(auto& itema: receivedTable){
-
+	for(auto& recItem: receivedTable){
 		if(first){
-			senderIP = itema.dest;
+			senderIP = recItem.dest;
 			first = false;
 		}
 
-		bool add = true;
-		bool update = false;
-		for(auto& itemb: *myTablePtr){
-			if(itema.dest == itemb.dest || itema.via == getIP()){
+		for(vector<tableEntry>::iterator it = myTablePtr->begin(); it != myTablePtr->end();){
+			auto& myTableItem = *it;
+
+			bool add = true;
+			bool update = false;
+			if(recItem.dest == myTableItem.dest || recItem.via == getIP()){
 				add = false;
-				update = (itema.dest == itema.via && itema.via!=itemb.via);
+				update = (recItem.dest == recItem.via && recItem.via!=myTableItem.via);
 				}
-		}
 
-		if(add){
-			tableEntry tmp;
-			tmp.dest = itema.dest;
-			tmp.via = senderIP;
-			tmp.time = 5;
-			myTablePtr->push_back(tmp);
-
-		}
-		if(update){
-			for(auto& items: *myTablePtr){
-				if(itema.dest == items.dest){
-					items.via = itema.via;
+			if(add){
+				tableEntry tmp;
+				tmp.dest = recItem.dest;
+				tmp.via = senderIP;
+				tmp.time = 5;
+				myTablePtr->push_back(tmp);
+					}
+			if(update){
+				for(auto& items: *myTablePtr){
+					if(recItem.dest == items.dest){
+						items.via = recItem.via;
+					}
+					items.time = 5;
 				}
-				items.time = 5;
 			}
+			bool deleteItem = true;
+			if(myTableItem.via == senderIP){
+				for(auto& items: receivedTable){
+					if(recItem.dest == myTableItem.dest)deleteItem = false;
+				}
+			}
+
+
+			vector<tableEntry>::iterator next_it = it;
+			++next_it;
+
+			if(deleteItem)
+				next_it = myTablePtr->erase(it);
+
 		}
 	}
 
@@ -131,7 +145,6 @@ vector<tableEntry> stringToVector(string receivedString) {
 	  tempTable.push_back(tmp);
 	  }
 	}
-
 
 
 	return tempTable;
