@@ -30,13 +30,14 @@ int main() {
 	std::cin >> DestinationIP;
 	std::cout << "Say something: " << std::endl;
 	while(1){
+		Message.clear();
 		std::getline(std::cin, Message);
 		if (Message.size()==0){
 			Message = getIP() + " is connected to you.";
 		}
-		//sendMessage( DestinationIP, getNextHop(DestinationIP, fwdTable), encrypt(Message,getPublicKey()));
-		string Hoi = encrypt(Message,getPublicKey());
-		std:: cout << Hoi << ", " << decrypt(Hoi, getPublicKey()) << std::endl;
+		sendMessage( DestinationIP, getNextHop(DestinationIP, fwdTable), encrypt(Message,getPublicKey()));
+		//string Hoi = encrypt(Message,getPublicKey());
+		//std:: cout << Hoi << ", " << decrypt(Hoi, getPublicKey()) << std::endl;
 		//std::cout << getNextHop(DestinationIP) << std::endl;
 	}
 
