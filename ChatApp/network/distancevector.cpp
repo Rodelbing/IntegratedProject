@@ -51,7 +51,7 @@ void start(vector<tableEntry> *inputTable){
 
 		std::string message;
 		while((message=x.pop()).size()>0){
-			//cout<<message<<endl;
+			cout<<message<<endl;
 			routing(message);
 		}
 		//send
@@ -69,10 +69,10 @@ void routing(string recStr) {
 	string senderIP;
 	vector<tableEntry> receivedTable = stringToVector(recStr);
 	//printTable(receivedTable);
-
+	int i =0;
 	bool first = true;
 	for(auto& recItem: receivedTable){
-		cout<<"eerste"<<endl;
+		cout<<"rec item "<<i++<<endl;
 		if(first){
 			senderIP = recItem.dest;
 			first = false;
@@ -84,12 +84,10 @@ void routing(string recStr) {
 			bool add = true;
 			bool update = false;
 			cout<<recItem.dest<<"LOL"<<endl;
-//			cout<<myTableItem.dest<<"dus"<<endl;
+			cout<<myTableItem.dest<<"deze moet je hebben"<<endl;
 			if(recItem.dest == myTableItem.dest || recItem.via == getIP()){
-				cout<<"add - false"<<endl;
+				cout<<"add = false nigga!"<<endl;
 				add = false;
-				update = true;
-				//update = (itema.dest == itema.via && itema.via!=itemb.via);
 				update = (recItem.dest == recItem.via && recItem.via!=myTableItem.via);
 				}
 
@@ -99,7 +97,7 @@ void routing(string recStr) {
 				tmp.via = senderIP;
 				tmp.time = 5;
 				myTablePtr->push_back(tmp);
-				cout<<"derde"<<endl;
+				cout<<"hij heeft ge-add"<<endl;
 					}
 			if(update){
 				for(auto& items: *myTablePtr){
@@ -118,7 +116,7 @@ void routing(string recStr) {
 				//items.time = 5;
 			}
 
-
+//
 //			if(deleteItem)
 //				myTablePtr->erase(myTablePtr->begin() + it);
 
