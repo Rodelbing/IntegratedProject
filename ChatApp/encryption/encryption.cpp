@@ -42,6 +42,7 @@ int getPublicKey(){
 	return abs(output%mod);
 }
 
+
 string encypher(string input, int key){
 	string hexStr =string_to_hex(input);
 	string output = "";
