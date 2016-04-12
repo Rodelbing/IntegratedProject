@@ -39,7 +39,7 @@ void encryptionInit(){
 
 int getPublicKey(){
 	int output = pow(base, privateKey);
-return output%mod;
+	return abs(output%mod);
 }
 
 string encypher(string input, int key){
