@@ -3,6 +3,7 @@
 #include <string>
 #include <iostream>
 #include <sstream>
+#include <cmath>
 
 using namespace std;
 
@@ -18,18 +19,18 @@ string decypher(string, int);
 int hexStr_to_int(string);
 string hexInt_to_string(int);
 
-int privateKey = 80085;
+int privateKey = 80085123;
 //static
-int base = 66;
-int mod = 99;
+int base = 66666666;
+int mod = 99999999;
 
 string encrypt(string input, int key){
-	int secretKey = abs(key^privateKey%mod);
-	return encypher(input, secretKey);
+	int secretKey = pow(key, privateKey);
+	return encypher(input, abs(secretKey%mod));
 }
 string decrypt(string input, int key){
-	int secretKey = abs(key^privateKey%mod);
-	return decypher(input, secretKey);
+	int secretKey = pow(key, privateKey);
+	return decypher(input, abs(secretKey%mod));
 }
 
 void encryptionInit(){
@@ -37,7 +38,8 @@ void encryptionInit(){
 }
 
 int getPublicKey(){
-return base^privateKey%mod;
+	int output = pow(base, privateKey);
+return output%mod;
 }
 
 string encypher(string input, int key){
@@ -53,31 +55,30 @@ string encypher(string input, int key){
 			int hexInt = hexStr_to_int(hexStr.substr(i,8));
 			int enHexInt = Cypher(hexInt, key);
 			output += hexInt_to_string(enHexInt);
-			output += "-";
+			//output += "-";
 			last_i = i + 8;
 		}
 		int hexInt = hexStr_to_int(hexStr.substr(last_i,(hexStr.size()-last_i)));
 		int enHexInt = Cypher(hexInt, key);
 		output += hexInt_to_string(enHexInt);
+
 	}
 	return output;
+
 }
+
 
 string decypher(string input, int key){
 	string output="";
 	if(input.size()<=8){
-		output = hex_to_string(hexInt_to_string(Cypher(hexStr_to_int(input), key)));
+		output = hexInt_to_string(Cypher(hexStr_to_int(input), key));
 	}else{
-		int k = -1;
-		for(int i =0; i<input.size();i++){
-			if(input[i] == '-'){
-				string tmp = hexInt_to_string(Cypher(hexStr_to_int(input.substr(k+1, (i+1-k))), key));
-				output += tmp;
-				k = i;
-			}
+		int remainder = input.size()%8;
+		int i;
+		for(i=0;i<=input.size()-8;i+=8){
+			output += hexInt_to_string(Cypher(hexStr_to_int(input.substr(i,8)),key));
 		}
-		string tmp = hexInt_to_string(Cypher(hexStr_to_int(input.substr(k+1, (input.size()-k))), key));
-		output += tmp;
+		if(remainder)output += hexInt_to_string(Cypher(hexStr_to_int(input.substr(i,remainder)),key));
 	}
 	return hex_to_string(output);
 }
@@ -94,8 +95,8 @@ string hexInt_to_string(int input){
 }
 
 
-int Cypher(int input, int keys){
-	return input^keys;
+int Cypher(int input, int key){
+	return input^key;
 }
 
 std::string string_to_hex(const std::string& input)
