@@ -21,6 +21,7 @@
 #include "tcpreceive.h"
 #include "../lib/BlockingQueue.h"
 #include "../lib/Includes.h"
+#include "../encryption/encryption.h"
 using namespace std;
 
 
@@ -79,7 +80,7 @@ void routing(string recStr) {
 			auto& myTableItem = (*myTablePtr)[it];
 			if(recItem.dest == myTableItem.dest || recItem.via == getIP()){
 				add = false;
-				update = (recItem.dest == recItem.via && recItem.via!=myTableItem.via);
+				update = (recItem.via!=myTableItem.via && recItem.via==senderIP);
 				}
 
 
@@ -107,7 +108,7 @@ void routing(string recStr) {
 		if(update){
 			for(auto& items: *myTablePtr){
 				if(recItem.dest == items.dest){
-					items.via = recItem.via;
+					items.via = senderIP;
 				}
 			}
 
