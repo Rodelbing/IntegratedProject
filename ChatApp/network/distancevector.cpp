@@ -88,6 +88,8 @@ void routing(string recStr) {
 			if(recItem.dest == myTableItem.dest || recItem.via == getIP()){
 				cout<<"add - false"<<endl;
 				add = false;
+				update = true;
+				//update = (itema.dest == itema.via && itema.via!=itemb.via);
 				update = (recItem.dest == recItem.via && recItem.via!=myTableItem.via);
 				}
 
@@ -113,6 +115,7 @@ void routing(string recStr) {
 				for(auto& items: receivedTable){
 					if(recItem.dest == myTableItem.dest)deleteItem = false;
 				}
+				//items.time = 5;
 			}
 
 
