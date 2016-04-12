@@ -19,27 +19,23 @@ string decypher(string, int);
 int hexStr_to_int(string);
 string hexInt_to_string(int);
 
-int privateKey = 80085123;
-//static
-int base = 66666666;
-int mod = 99999999;
+int privateKey = 12345678;
+int base = 80085135;
 
 string encrypt(string input, int key){
-	int secretKey = pow(key, privateKey);
-	return encypher(input, abs(secretKey%mod));
+	return encypher(input, key^privateKey);
 }
 string decrypt(string input, int key){
-	int secretKey = pow(key, privateKey);
-	return decypher(input, abs(secretKey%mod));
+	return decypher(input, key^privateKey);
 }
 
 void encryptionInit(){
+	srand(time(NULL));
 	privateKey = rand() % (9999 + 1) + (rand() % (9999 + 1) *10000);
 }
 
 int getPublicKey(){
-	int output = pow(base, privateKey);
-	return abs(output%mod);
+	return (base^privateKey);
 }
 
 
