@@ -48,6 +48,7 @@ void start(vector<tableEntry> *inputTable){
 	string sendStr = vectorToString(*myTablePtr);
 	multisend(14000, "228.1.2.3", getIP(), sendStr);
 	while(true){
+
 		std::string message;
 		while((message=x.pop()).size()>0){
 			routing(message);
@@ -63,53 +64,53 @@ void start(vector<tableEntry> *inputTable){
 }
 
 void routing(string recStr) {
+
 	string senderIP;
 	vector<tableEntry> receivedTable = stringToVector(recStr);
 	bool first = true;
 	for(auto& recItem: receivedTable){
+		bool add = true;
+		bool update = false;
 		if(first){
 			senderIP = recItem.dest;
 			first = false;
 		}
-
-		for(vector<tableEntry>::iterator it = myTablePtr->begin(); it != myTablePtr->end();){
-			auto& myTableItem = *it;
-
-			bool add = true;
-			bool update = false;
+		for(size_t it = 0; it < myTablePtr->size(); ++it){
+			auto& myTableItem = (*myTablePtr)[it];
 			if(recItem.dest == myTableItem.dest || recItem.via == getIP()){
 				add = false;
 				update = (recItem.dest == recItem.via && recItem.via!=myTableItem.via);
 				}
 
-			if(add){
-				tableEntry tmp;
-				tmp.dest = recItem.dest;
-				tmp.via = senderIP;
-				tmp.time = 5;
-				myTablePtr->push_back(tmp);
-					}
-			if(update){
-				for(auto& items: *myTablePtr){
-					if(recItem.dest == items.dest){
-						items.via = recItem.via;
-					}
-					items.time = 5;
-				}
-			}
-			bool deleteItem = true;
+
+			bool deleteItem = false;
 			if(myTableItem.via == senderIP){
+				deleteItem = true;
 				for(auto& items: receivedTable){
-					if(recItem.dest == myTableItem.dest)deleteItem = false;
+					if(items.dest == myTableItem.dest){deleteItem = false;}
 				}
 			}
 
 
-			vector<tableEntry>::iterator next_it = it;
-			++next_it;
+			if(deleteItem){
+				myTablePtr->erase(myTablePtr->begin() + it);
+			}
 
-			if(deleteItem)
-				next_it = myTablePtr->erase(it);
+		}
+		if(add){
+			tableEntry tmp;
+			tmp.dest = recItem.dest;
+			tmp.via = senderIP;
+			tmp.time = 5;
+			myTablePtr->push_back(tmp);
+				}
+		if(update){
+			for(auto& items: *myTablePtr){
+				if(recItem.dest == items.dest){
+					items.via = recItem.via;
+				}
+				items.time = 5;
+			}
 
 		}
 	}
