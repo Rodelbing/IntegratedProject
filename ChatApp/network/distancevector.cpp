@@ -78,7 +78,8 @@ void routing(string recStr) {
 		for(auto& itemb: *myTablePtr){
 			if(itema.dest == itemb.dest || itema.via == getIP()){
 				add = false;
-				update = (itema.dest == itema.via && itema.via!=itemb.via);
+				update = true;
+				//update = (itema.dest == itema.via && itema.via!=itemb.via);
 				}
 		}
 
@@ -95,7 +96,7 @@ void routing(string recStr) {
 				if(itema.dest == items.dest){
 					items.via = itema.via;
 				}
-				items.time = 5;
+				//items.time = 5;
 			}
 		}
 	}
