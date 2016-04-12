@@ -84,7 +84,7 @@ void routing(string recStr) {
 
 			if(add){
 				tableEntry tmp;
-				tmp.dest = itema.dest;
+				tmp.dest = recItem.dest;
 				tmp.via = senderIP;
 				tmp.time = 5;
 				myTablePtr->push_back(tmp);
