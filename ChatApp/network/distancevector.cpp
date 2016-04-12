@@ -39,6 +39,7 @@ void init(){
 	self.dest = getIP();
 	self.via = getIP();
 	self.time = 5;
+	self.publicKey = getPublicKey();
 	myTablePtr->push_back(self);
 }
 
@@ -103,6 +104,7 @@ void routing(string recStr) {
 			tmp.dest = recItem.dest;
 			tmp.via = senderIP;
 			tmp.time = 5;
+			tmp.publicKey = recItem.publicKey;
 			myTablePtr->push_back(tmp);
 				}
 		if(update){
@@ -127,6 +129,8 @@ string vectorToString(vector<tableEntry> myTablePtr) {
 		myString += Dest;
 		myString += "-";
 		myString += Via;
+		myString += "-";
+		myString += std::to_string(items.publicKey);
 		//std::cout << myString << std::endl;
 	};
 	return myString;
@@ -143,6 +147,7 @@ vector<tableEntry> stringToVector(string receivedString) {
 	  tableEntry tmp;
 	  tmp.dest = receivedString.substr(i+1, 11);
 	  tmp.via = receivedString.substr(i+13, 11);
+	  tmp.publicKey = std::stoi(receivedString.substr(i+25, 8));
 	  tempTable.push_back(tmp);
 	  }
 	}
@@ -155,8 +160,9 @@ vector<tableEntry> stringToVector(string receivedString) {
 void printTable(vector<tableEntry> dus){
  for(auto& items: dus){
 	// cout<<items.dest<<" VIA "<<items.via << " FOR ANOTHER " << items.time << "sec" << endl;
- 	 }
- 	// cout<<"<-End table->"<<endl;
+	cout<<items.dest<<" VIA "<<items.via<<" with key "<<items.publicKey << " FOR ANOTHER " << items.time << "sec" << endl;
+ 	}
+ 	cout<<"<-End table->"<<endl;
 
 }
 

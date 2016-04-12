@@ -13,6 +13,7 @@ struct tableEntry{
 		std::string dest;
 		std::string via;
 		int time;
+		int publicKey;
 	};
 
 std::string getNextHop(std::string destn,std::vector<tableEntry> newfwdTable);
