@@ -23,8 +23,8 @@ int main() {
 	std::string DestinationIP;
 	std::string MyIP = getIP();
 	std::string Message;
-	//std::thread routing(start, &fwdTable);
-	//std::thread test(tcpreceive ,6969, std::ref(q), &fwdTable);
+	std::thread routing(start, &fwdTable);
+	std::thread test(tcpreceive ,6969, std::ref(q), &fwdTable);
 	encryptionInit();
 	std::cout << "Destination IP" << std::endl;
 	std::cin >> DestinationIP;
@@ -35,9 +35,9 @@ int main() {
 		if (Message.size()==0){
 			Message = getIP() + " is connected to you.";
 		}
-		//sendMessage( DestinationIP, getNextHop(DestinationIP, fwdTable), encrypt(Message,getPublicKey()));
-		string Hoi = encrypt(Message,getPublicKey());
-		std:: cout << Hoi << ", " << decrypt(Hoi, getPublicKey()) << std::endl;
+		sendMessage( DestinationIP, getNextHop(DestinationIP, fwdTable), encrypt(Message,getPublicKey()));
+		//string Hoi = encrypt(Message,getPublicKey());
+		//std:: cout << Hoi << ", " << decrypt(Hoi, getPublicKey()) << std::endl;
 		//std::cout << getNextHop(DestinationIP) << std::endl;
 	}
 
