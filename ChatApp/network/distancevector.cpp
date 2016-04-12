@@ -78,23 +78,23 @@ void routing(string recStr) {
 		for(size_t it = 0; it < myTablePtr->size(); ++it){
 			auto& myTableItem = (*myTablePtr)[it];
 			if(recItem.dest == myTableItem.dest || recItem.via == getIP()){
-				cout<<"add = false nigga!"<<endl;
 				add = false;
 				update = (recItem.dest == recItem.via && recItem.via!=myTableItem.via);
 				}
 
 
-			bool deleteItem = true;
+			bool deleteItem = false;
 			if(myTableItem.via == senderIP){
+				deleteItem = true;
 				for(auto& items: receivedTable){
-					if(recItem.dest == myTableItem.dest)deleteItem = false;
+					if(items.dest == myTableItem.dest){deleteItem = false;}
 				}
-				//items.time = 5;
 			}
 
-//
-//			if(deleteItem)
-//				myTablePtr->erase(myTablePtr->begin() + it);
+
+			if(deleteItem){
+				myTablePtr->erase(myTablePtr->begin() + it);
+			}
 
 		}
 		if(add){
@@ -103,7 +103,6 @@ void routing(string recStr) {
 			tmp.via = senderIP;
 			tmp.time = 5;
 			myTablePtr->push_back(tmp);
-			cout<<"hij heeft ge-add"<<endl;
 				}
 		if(update){
 			for(auto& items: *myTablePtr){
