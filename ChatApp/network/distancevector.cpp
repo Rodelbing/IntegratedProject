@@ -90,7 +90,7 @@ void routing(string recStr) {
 					if(items.dest == myTableItem.dest){deleteItem = false;}
 				}
 			}
-
+			if(myTableItem.dest == recItem.dest && myTableItem.via == senderIP)myTableItem.time = 5;
 
 			if(deleteItem){
 				myTablePtr->erase(myTablePtr->begin() + it);
@@ -109,7 +109,6 @@ void routing(string recStr) {
 				if(recItem.dest == items.dest){
 					items.via = recItem.via;
 				}
-				items.time = 5;
 			}
 
 		}
