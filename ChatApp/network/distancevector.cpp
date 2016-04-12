@@ -140,9 +140,9 @@ vector<tableEntry> stringToVector(string receivedString) {
 
 void printTable(vector<tableEntry> dus){
  for(auto& items: dus){
-	 cout<<items.dest<<" VIA "<<items.via << " FOR ANOTHER " << items.time << "sec" << endl;
+	// cout<<items.dest<<" VIA "<<items.via << " FOR ANOTHER " << items.time << "sec" << endl;
  	 }
- 	 cout<<"<-End table->"<<endl;
+ 	// cout<<"<-End table->"<<endl;
 
 }
 
