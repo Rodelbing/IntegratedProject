@@ -30,20 +30,15 @@ std::string Message;
 
 void Printsend(GtkMenuItem *sender, gpointer user_data)
 {
-	const gchar Text = *(gtk_entry_get_text (InputBar));
 	const gchar *Input = gtk_entry_get_text (InputBar);
 	gtk_text_buffer_insert_at_cursor(Buffer, Input , -1);
 	std::string Message = (std::string) Input;
-	//Message.assign(Input,3);
 	gtk_entry_set_text(InputBar, "");
 	if (Message.size()==0){
 		Message = getIP() + " is connected to you.";
 	}
 	sendMessage( DestinationIP, getNextHop(DestinationIP, fwdTable), encrypt(Message,getReceiverKey(DestinationIP, fwdTable)));
-
-
-
-			return;
+	return;
 }
 
 
