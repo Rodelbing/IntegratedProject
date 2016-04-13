@@ -48,6 +48,16 @@ void Printsend(GtkMenuItem *sender, gpointer user_data)
 	return;
 }
 
+void ButtonClick(GtkButton *sender, gpointer user_data)
+{
+	cout << gtk_button_get_label(sender) << endl;
+	if(gtk_button_get_label(sender) != "NONE"){
+		DestinationIP = gtk_button_get_label(sender);
+	}
+
+	return;
+}
+
 
 int main(int argc, char *argv[]) {
 	encryptionInit();
@@ -69,12 +79,15 @@ int main(int argc, char *argv[]) {
 	Button[2] = (GtkButton*) gtk_builder_get_object (builder, "button3");
 	Button[3] = (GtkButton*) gtk_builder_get_object (builder, "button4");
 	Button[4] = (GtkButton*) gtk_builder_get_object (builder, "button5");
+	g_signal_connect (Button[0], "clicked", G_CALLBACK (ButtonClick), NULL);
+	g_signal_connect (Button[1], "clicked", G_CALLBACK (ButtonClick), NULL);
+	g_signal_connect (Button[2], "clicked", G_CALLBACK (ButtonClick), NULL);
+	g_signal_connect (Button[3], "clicked", G_CALLBACK (ButtonClick), NULL);
+	g_signal_connect (Button[4], "clicked", G_CALLBACK (ButtonClick), NULL);
 
 	Buffer = (GtkTextBuffer*) gtk_builder_get_object(builder, "AllText");
 	InputBar = (GtkEntry*) gtk_builder_get_object (builder, "TextInput");
-	g_signal_connect (InputBar, "activate", G_CALLBACK (
-			Printsend
-	), NULL);
+	g_signal_connect (InputBar, "activate", G_CALLBACK (Printsend), NULL);
 
 	//std::cout << "Destination IP" << std::endl;
 	//std::cin >> DestinationIP;
