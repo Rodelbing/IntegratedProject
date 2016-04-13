@@ -31,8 +31,11 @@ std::string Message;
 void Printsend(GtkMenuItem *sender, gpointer user_data)
 {
 	const gchar *Input = gtk_entry_get_text (InputBar);
-	gtk_text_buffer_insert_at_cursor(Buffer, Input , -1);
 	std::string Message = (std::string) Input;
+	std::string Print = "You: " + Message + "\n";
+	const gchar *Insert = &Print[0];
+	gtk_text_buffer_insert_at_cursor(Buffer, Insert , -1);
+
 	gtk_entry_set_text(InputBar, "");
 	if (Message.size()==0){
 		Message = getIP() + " is connected to you.";

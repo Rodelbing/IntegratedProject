@@ -7,7 +7,8 @@
 #include "../encryption/encryption.h"
 int analyzeTCP(std::string Packet, std::vector <tableEntry> inputTable){
 
-	std::string SplitMessage[4] = "";
+	std::string SplitMessage[4];
+	SplitMessage[3] = "";
 	std::string Delimiter = "+";
 	size_t Pos = 0;
 	int Counter = 0;
