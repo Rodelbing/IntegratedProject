@@ -183,7 +183,7 @@ void updateTimetable(vector<tableEntry> *dus){
 		if(item.time < 1)
 		{
 			if (item.dest != getIP()){
-				//cout << "delete!" << endl;
+				cout << "delete!" << endl;
 				tableEntry *ptr = &item;
 				next_i = dus->erase(i);
 
