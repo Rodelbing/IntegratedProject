@@ -2,7 +2,7 @@
 <!-- Generated with glade 3.18.3 -->
 <interface>
   <requires lib="gtk+" version="3.12"/>
-  <object class="GtkTextBuffer" id="AllText"/>
+  <object class="GtkTextBuffer" id="AllText1"/>
   <object class="GtkWindow" id="window">
     <property name="width_request">800</property>
     <property name="height_request">680</property>
@@ -21,7 +21,7 @@
             <property name="orientation">vertical</property>
             <child>
               <object class="GtkButton" id="button1">
-                <property name="label" translatable="yes"> </property>
+                <property name="label" translatable="yes">NONE</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -34,7 +34,7 @@
             </child>
             <child>
               <object class="GtkButton" id="button2">
-                <property name="label" translatable="yes"> </property>
+                <property name="label" translatable="yes">NONE</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -47,7 +47,7 @@
             </child>
             <child>
               <object class="GtkButton" id="button3">
-                <property name="label" translatable="yes"> </property>
+                <property name="label" translatable="yes">NONE</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -60,7 +60,7 @@
             </child>
             <child>
               <object class="GtkButton" id="button4">
-                <property name="label" translatable="yes"> </property>
+                <property name="label" translatable="yes">NONE</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -73,7 +73,7 @@
             </child>
             <child>
               <object class="GtkButton" id="button5">
-                <property name="label" translatable="yes"> </property>
+                <property name="label" translatable="yes">NONE</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -117,7 +117,7 @@
                     <property name="vscroll_policy">natural</property>
                     <property name="editable">False</property>
                     <property name="wrap_mode">word</property>
-                    <property name="buffer">AllText</property>
+                    <property name="buffer">AllText1</property>
                   </object>
                 </child>
               </object>
@@ -154,5 +154,9 @@
       </object>
     </child>
   </object>
+  <object class="GtkTextBuffer" id="AllText2"/>
+  <object class="GtkTextBuffer" id="AllText3"/>
+  <object class="GtkTextBuffer" id="AllText4"/>
+  <object class="GtkTextBuffer" id="AllText5"/>
   <object class="GtkEntryCompletion" id="entrycompletion1"/>
 </interface>
