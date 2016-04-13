@@ -58,26 +58,24 @@ int main(int argc, char *argv[]) {
 	std::cout << "Test1" << std::endl;
 
 	gtk_init (&argc, &argv);
-	std::cout << "Test1" << std::endl;
 	   //Construct a GtkBuilder instance and load our UI description
 	builder = gtk_builder_new ();
 	gtk_builder_add_from_file (builder, "builder.ui", NULL);
 
-	Button[0] = (GtkButton*) gtk_builder_get_object (builder, "Button1");
-	Button[1] = (GtkButton*) gtk_builder_get_object (builder, "Button2");
-	Button[2] = (GtkButton*) gtk_builder_get_object (builder, "Button3");
-	Button[3] = (GtkButton*) gtk_builder_get_object (builder, "Button4");
-	Button[4] = (GtkButton*) gtk_builder_get_object (builder, "Button5");
+	Button[0] = (GtkButton*) gtk_builder_get_object (builder, "button1");
+	Button[1] = (GtkButton*) gtk_builder_get_object (builder, "button2");
+	Button[2] = (GtkButton*) gtk_builder_get_object (builder, "button3");
+	Button[3] = (GtkButton*) gtk_builder_get_object (builder, "button4");
+	Button[4] = (GtkButton*) gtk_builder_get_object (builder, "button5");
 
 	Buffer = (GtkTextBuffer*) gtk_builder_get_object(builder, "AllText");
 	InputBar = (GtkEntry*) gtk_builder_get_object (builder, "TextInput");
 	g_signal_connect (InputBar, "activate", G_CALLBACK (
 			Printsend
 	), NULL);
-	std::cout << "Test1" << std::endl;
 
-	std::cout << "Destination IP" << std::endl;
-	std::cin >> DestinationIP;
+	//std::cout << "Destination IP" << std::endl;
+	//std::cin >> DestinationIP;
 	gtk_main ();
 	std::cout << "Say something: " << std::endl;
 	while(1){
@@ -111,8 +109,11 @@ void deleteButton(std::string IP){
 void addButton(std::string IP){
 	for (int i = 0; i<5;i++){
 		const char* lol = IP.c_str();
-		if(gtk_button_get_label(Button[i])== " "){
+		cout << gtk_button_get_label(Button[i]) << endl;
+		if(gtk_button_get_label(Button[i])=="  "){
+			cout << "Hoi" << endl;
 			gtk_button_set_label(Button[i], lol);
+			return;
 		}
 	}
 }
