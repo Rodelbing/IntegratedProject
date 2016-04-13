@@ -20,3 +20,10 @@ std::string getNextHop(std::string destn,std::vector<tableEntry> newfwdTable){
 	return output;
 }
 
+int getReceiverKey(std::string destn,std::vector<tableEntry> newfwdTable){
+	int output;
+	for(auto& items: newfwdTable){
+		if(items.dest == destn)output=items.publicKey;
+	}
+	return output;
+}
