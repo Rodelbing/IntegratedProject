@@ -17,6 +17,7 @@ struct tableEntry{
 	};
 
 std::string getNextHop(std::string destn,std::vector<tableEntry> newfwdTable);
+int getReceiverKey(std::string destn,std::vector<tableEntry> newfwdTable);
 
 
 #endif /* LIB_INCLUDES_H_ */
