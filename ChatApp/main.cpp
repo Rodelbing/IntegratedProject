@@ -30,16 +30,12 @@ std::string Message;
 
 void Printsend(GtkMenuItem *sender, gpointer user_data)
 {
+	const gchar Text = *(gtk_entry_get_text (InputBar));
 	const gchar *Input = gtk_entry_get_text (InputBar);
 	gtk_text_buffer_insert_at_cursor(Buffer, Input , -1);
-	gtk_entry_set_text(InputBar, "");
-	char Messagep[10];
-	sprintf(Messagep, "%8s\n", Input);
-	std::cout <<"Messagep:" << Messagep << std::endl;
-	std::string Message = (std::string)Input;
+	std::string Message = (std::string) Input;
 	//Message.assign(Input,3);
-	std::cout <<"Message:" << Message << std::endl;
-	std::cin >> Message;
+	gtk_entry_set_text(InputBar, "");
 	if (Message.size()==0){
 		Message = getIP() + " is connected to you.";
 	}
@@ -52,7 +48,7 @@ void Printsend(GtkMenuItem *sender, gpointer user_data)
 
 
 int main(int argc, char *argv[]) {
-	encryptionInit();
+	//encryptionInit();
 
 	std::thread routing(start, &fwdTable);
 	std::thread test(tcpreceive ,6969, std::ref(q), &fwdTable);
