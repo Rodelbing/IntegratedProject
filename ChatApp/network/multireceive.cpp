@@ -51,7 +51,7 @@ int multireceive(int PORT, std::string group, std::string ip,  BlockingQueue<std
 
 	int pack = makesocket(PORT, group, ip);										// call function above to make socket
 	int recvlen;
-	char buf[BUFSIZE];
+	char buf[BUFSIZE] = "";
 	std::string foreignIP;														// string to store IP of sender
 
 	recvlen = 0;

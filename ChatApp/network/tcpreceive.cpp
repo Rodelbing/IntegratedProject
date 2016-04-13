@@ -57,7 +57,7 @@ int tcpreceive(int PORT, BlockingQueue<std::string> &q, vector<tableEntry> *inpu
 	socklen_t peer_address_len = sizeof(struct sockaddr_storage);
 
 	while(true){																// while loop to keep running and look for incoming packets
-			char buf[BUFSIZE];
+			char buf[BUFSIZE] = "";
 			if((listen(pack, 3)) < 0){
 				throw std::runtime_error("Error while listening");
 			}
@@ -75,7 +75,7 @@ int tcpreceive(int PORT, BlockingQueue<std::string> &q, vector<tableEntry> *inpu
 			}
 
 			q.push(std::string(buf, static_cast<int>(recvlen)));				// pushed message onto the blockingqueue
-			//std::cout <<  foreignIP << ": " << buf << std::endl;					// prints sender and message
+			std::cout <<  "buf: " << buf << std::endl;					// prints sender and message
 			analyzeTCP(buf, *inputTable);
 			}
 
