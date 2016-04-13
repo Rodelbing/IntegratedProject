@@ -52,10 +52,30 @@ int tcpsend(int PORT, std::string receiver, std::string buf){
 	receiving.sin_port = htons(PORT);											// set to specified port
 	receiving.sin_addr.s_addr = inet_addr(receiver.c_str());					// set to specified receiver
 
-	if ( connect(pack, (struct sockaddr *)&receiving, sizeof(receiving))<0 ){	// attempts to connect to receiving client
-		throw std::runtime_error("Cannot connect to receiving client");
+	//if ( connect(pack, (struct sockaddr *)&receiving, sizeof(receiving))<0 ){	// attempts to connect to receiving client
+		//throw std::runtime_error("Cannot connect to receiving client");
+	//}
+	
+	int retryCount = 3;
+	bool success = false;
+
+	while (!success && retryCount > 0){
+		if ( connect(pack, (struct sockaddr *)&receiving, sizeof(receiving))>=0 ){	// attempts to connect to receiving client
+				success = true;
+				std::cout << "connected" << std::endl;
+		}
+		else{
+			usleep(300000);
+			retryCount--;
+			std::cout << "retrying" << std::endl;
+		}
+		if (retryCount == 0){
+			throw std::runtime_error("Cannot connect to receiving client");
+		}
 	}
 
+
+	
 	if (send(pack, buf.c_str(), buf.size(), 0) < 0){							// send actual information after connection is established
 		throw std::runtime_error("Sending failed!");
 	}
