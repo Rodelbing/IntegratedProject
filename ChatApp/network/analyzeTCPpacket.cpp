@@ -5,6 +5,7 @@
 #include <string>
 #include "../lib/Includes.h"
 #include "../encryption/encryption.h"
+#include "../main.h"
 int analyzeTCP(std::string Packet, std::vector <tableEntry> inputTable){
 
 	std::string SplitMessage[4] = "";
@@ -24,6 +25,7 @@ int analyzeTCP(std::string Packet, std::vector <tableEntry> inputTable){
 if(SplitMessage[1] == getIP()){		// If this message is directed to me:
 	if(SplitMessage[2] == "MSG"){
 		std::cout << SplitMessage[1] << ": " << decrypt(SplitMessage[3],getReceiverKey(SplitMessage[0], inputTable)) << std::endl;
+		incommingMessage("MWUAHA");
 	}
 }else{								// Elsewise forward it
 	sendMessage(SplitMessage[1], getNextHop(SplitMessage[1], inputTable), SplitMessage[3]);
