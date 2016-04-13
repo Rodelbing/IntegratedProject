@@ -50,13 +50,14 @@ int tcpreceive(int PORT, BlockingQueue<std::string> &q, vector<tableEntry> *inpu
 	std::string foreignIP;														// string to save IP of client that sent the message
 	int pack = makeTCPsocket(PORT, getIP());									// call function to create socket and store it
 	ssize_t recvlen;
-	char buf[BUFSIZE];
+
 
 	recvlen = 0;
 	struct sockaddr_in peer_address;											// structure for peer_address
 	socklen_t peer_address_len = sizeof(struct sockaddr_storage);
 
 	while(true){																// while loop to keep running and look for incoming packets
+			char buf[BUFSIZE];
 			if((listen(pack, 3)) < 0){
 				throw std::runtime_error("Error while listening");
 			}
