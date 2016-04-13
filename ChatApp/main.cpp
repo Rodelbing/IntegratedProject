@@ -85,7 +85,7 @@ int main(int argc, char *argv[]) {
 	g_signal_connect (Button[3], "clicked", G_CALLBACK (ButtonClick), NULL);
 	g_signal_connect (Button[4], "clicked", G_CALLBACK (ButtonClick), NULL);
 
-	Buffer = (GtkTextBuffer*) gtk_builder_get_object(builder, "AllText");
+	Buffer = (GtkTextBuffer*) gtk_builder_get_object(builder, "AllText1");
 	InputBar = (GtkEntry*) gtk_builder_get_object (builder, "TextInput");
 	g_signal_connect (InputBar, "activate", G_CALLBACK (Printsend), NULL);
 
