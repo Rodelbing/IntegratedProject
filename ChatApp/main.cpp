@@ -41,7 +41,9 @@ void Printsend(GtkMenuItem *sender, gpointer user_data)
 	if (Message.size()==0){
 		Message = getIP() + " is connected to you.";
 	}
-	sendMessage( DestinationIP, getNextHop(DestinationIP, fwdTable), encrypt(Message,getReceiverKey(DestinationIP, fwdTable)));
+	if (DestinationIP.size()!=0){
+		sendMessage( DestinationIP, getNextHop(DestinationIP, fwdTable), encrypt(Message,getReceiverKey(DestinationIP, fwdTable)));
+	}
 	Message.clear();
 	return;
 }
@@ -99,9 +101,12 @@ void incomingMessage(string input){
 
 void deleteButton(std::string IP){
 	for (int i = 0; i<5;i++){
-		const char* lol = IP.c_str();
-		if(gtk_button_get_label(Button[i])==lol){
-			gtk_button_set_label(Button[i], " ");
+		std::string ButtonString = (std::string) gtk_button_get_label(Button[i]);
+		if(IP==ButtonString){
+			gtk_button_set_label(Button[i], "NONE");
+			if(DestinationIP == ButtonString){
+				DestinationIP = "";
+			}
 		}
 	}
 }
@@ -113,7 +118,6 @@ void addButton(std::string IP){
 
 		std::string ButtonString = (std::string) gtk_button_get_label(Button[i]);
 		cout << ButtonString << endl;
-		const char* compare = "NONE";
 		if(ButtonString=="NONE"){
 			cout << "Hoi" << endl;
 			gtk_button_set_label(Button[i], lol);
