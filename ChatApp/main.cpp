@@ -42,7 +42,7 @@ void Printsend(GtkMenuItem *sender, gpointer user_data)
 		Message = getIP() + " is connected to you.";
 	}
 	if (DestinationIP.size()!=0){
-		sendMessage( DestinationIP, getNextHop(DestinationIP, fwdTable), encrypt(Message,getReceiverKey(DestinationIP, fwdTable)));
+		sendMessage(getIP(), DestinationIP, getNextHop(DestinationIP, fwdTable), encrypt(Message,getReceiverKey(DestinationIP, fwdTable)));
 	}
 	Message.clear();
 	return;
@@ -99,7 +99,7 @@ int main(int argc, char *argv[]) {
 		if (Message.size()==0){
 			Message = getIP() + " is connected to you.";
 		}
-		sendMessage( DestinationIP, getNextHop(DestinationIP, fwdTable), encrypt(Message,getReceiverKey(DestinationIP, fwdTable)));
+		sendMessage(getIP(), DestinationIP, getNextHop(DestinationIP, fwdTable), encrypt(Message,getReceiverKey(DestinationIP, fwdTable)));
 		//string Hoi = encrypt(Message,getPublicKey());
 		//std:: cout << Hoi << ", " << decrypt(Hoi, getPublicKey()) << std::endl;
 		//std::cout << getNextHop(DestinationIP) << std::endl;

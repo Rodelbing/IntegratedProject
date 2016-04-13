@@ -30,7 +30,7 @@ if(SplitMessage[1] == getIP()){		// If this message is directed to me:
 		incomingMessage(message);
 	}
 }else{								// Elsewise forward it
-	sendMessage(SplitMessage[1], getNextHop(SplitMessage[1], inputTable), SplitMessage[3]);
+	sendMessage(SplitMessage[0], SplitMessage[1], getNextHop(SplitMessage[1], inputTable), SplitMessage[3]);
 }
 
 	return 0;
