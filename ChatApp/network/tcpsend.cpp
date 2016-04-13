@@ -65,7 +65,7 @@ int tcpsend(int PORT, std::string receiver, std::string buf){
 				std::cout << "connected" << std::endl;
 		}
 		else{
-			usleep(200);
+			usleep(300000);
 			retryCount--;
 			std::cout << "retrying" << std::endl;
 		}
