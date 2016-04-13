@@ -38,12 +38,13 @@ void Printsend(GtkMenuItem *sender, gpointer user_data)
 		Message = getIP() + " is connected to you.";
 	}
 	sendMessage( DestinationIP, getNextHop(DestinationIP, fwdTable), encrypt(Message,getReceiverKey(DestinationIP, fwdTable)));
+	Message.clear();
 	return;
 }
 
 
 int main(int argc, char *argv[]) {
-	//encryptionInit();
+	encryptionInit();
 
 	std::thread routing(start, &fwdTable);
 	std::thread test(tcpreceive ,6969, std::ref(q), &fwdTable);
