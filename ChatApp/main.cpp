@@ -110,9 +110,11 @@ void addButton(std::string IP){
 	cout << IP << endl;
 	for (int i = 0; i<5;i++){
 		const char* lol = IP.c_str();
-		cout << gtk_button_get_label(Button[i]) << endl;
-		const char* compare = " ";
-		if(gtk_button_get_label(Button[i])==compare){
+
+		std::string ButtonString = (std::string) gtk_button_get_label(Button[i]);
+		cout << ButtonString << endl;
+		const char* compare = "NONE";
+		if(ButtonString=="NONE"){
 			cout << "Hoi" << endl;
 			gtk_button_set_label(Button[i], lol);
 			return;
