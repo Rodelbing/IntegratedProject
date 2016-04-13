@@ -32,7 +32,7 @@ void Printsend(GtkMenuItem *sender, gpointer user_data)
 }
 
 
-int main() {
+int main(int argc, char *argv[]) {
 	std::string DestinationIP;
 	std::string MyIP = getIP();
 	std::string Message;
