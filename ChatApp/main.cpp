@@ -6,6 +6,8 @@
 #include <cstring>
 #include <unistd.h>
 #include <vector>
+#include <map>
+
 #include "lib/Includes.h"
 #include "network/getIP.h"
 #include "network/multisend.h"
@@ -21,13 +23,17 @@
 static BlockingQueue<std::string> q;
 vector<tableEntry> fwdTable;
 
-GtkTextBuffer *Buffer;
+GtkTextBuffer *Buffer[5];
 GtkEntry *InputBar;
+GtkTextView *ChatText;
 GtkButton *Button[5];
 
 std::string DestinationIP;
 std::string MyIP = getIP();
 std::string Message;
+
+std::map<std::string,int> IPtoBuffer;
+int Counter = 0;
 
 void Printsend(GtkMenuItem *sender, gpointer user_data)
 {
@@ -35,7 +41,7 @@ void Printsend(GtkMenuItem *sender, gpointer user_data)
 	std::string Message = (std::string) Input;
 	std::string Print = "You: " + Message + "\n";
 	const gchar *Insert = &Print[0];
-	gtk_text_buffer_insert_at_cursor(Buffer, Insert , -1);
+	gtk_text_buffer_insert_at_cursor(gtk_text_view_get_buffer(ChatText), Insert , -1);
 
 	gtk_entry_set_text(InputBar, "");
 	if (Message.size()==0){
@@ -53,7 +59,10 @@ void ButtonClick(GtkButton *sender, gpointer user_data)
 	cout << gtk_button_get_label(sender) << endl;
 	if(gtk_button_get_label(sender) != "NONE"){
 		DestinationIP = gtk_button_get_label(sender);
+		gtk_text_view_set_buffer(ChatText, Buffer[IPtoBuffer[gtk_button_get_label(sender)]]);
 	}
+
+
 
 	return;
 }
@@ -66,9 +75,6 @@ int main(int argc, char *argv[]) {
 	std::thread test(tcpreceive ,6969, std::ref(q), &fwdTable);
 
 	GtkBuilder *builder;
-
-	std::cout << "Test1" << std::endl;
-
 	gtk_init (&argc, &argv);
 	   //Construct a GtkBuilder instance and load our UI description
 	builder = gtk_builder_new ();
@@ -85,8 +91,14 @@ int main(int argc, char *argv[]) {
 	g_signal_connect (Button[3], "clicked", G_CALLBACK (ButtonClick), NULL);
 	g_signal_connect (Button[4], "clicked", G_CALLBACK (ButtonClick), NULL);
 
-	Buffer = (GtkTextBuffer*) gtk_builder_get_object(builder, "AllText1");
+	Buffer[0] = (GtkTextBuffer*) gtk_builder_get_object(builder, "AllText1");
+	Buffer[1] = (GtkTextBuffer*) gtk_builder_get_object(builder, "AllText2");
+	Buffer[2] = (GtkTextBuffer*) gtk_builder_get_object(builder, "AllText3");
+	Buffer[3] = (GtkTextBuffer*) gtk_builder_get_object(builder, "AllText4");
+	Buffer[4] = (GtkTextBuffer*) gtk_builder_get_object(builder, "AllText5");
+
 	InputBar = (GtkEntry*) gtk_builder_get_object (builder, "TextInput");
+	ChatText = (GtkTextView*) gtk_builder_get_object (builder, "ChatText");
 	g_signal_connect (InputBar, "activate", G_CALLBACK (Printsend), NULL);
 
 	//std::cout << "Destination IP" << std::endl;
@@ -109,15 +121,17 @@ int main(int argc, char *argv[]) {
 
 void incomingMessage(string input){
 	const char* message = input.c_str();
-	gtk_text_buffer_insert_at_cursor(Buffer, message , -1);
+	gtk_text_buffer_insert_at_cursor(Buffer[IPtoBuffer[input.substr(0,11)]], message , -1);
 }
 
 void deleteButton(std::string IP){
 	for (int i = 0; i<5;i++){
 		std::string ButtonString = (std::string) gtk_button_get_label(Button[i]);
 		if(IP==ButtonString){
-			gtk_button_set_label(Button[i], "NONE");
-			if(DestinationIP == ButtonString){
+			//gtk_button_set_label(Button[i], "NONE");
+			gtk_widget_set_opacity((GtkWidget*) Button[i],0.5);
+			gtk_widget_set_sensitive ((GtkWidget*) Button[i], false);
+			if(getNextHop(DestinationIP, fwdTable) == ButtonString){
 				DestinationIP = "";
 			}
 		}
@@ -126,14 +140,24 @@ void deleteButton(std::string IP){
 
 void addButton(std::string IP){
 	cout << IP << endl;
+	for (int i = 0; i<5;i++){																//Check if it already exists as a button
+			std::string ButtonString = (std::string) gtk_button_get_label(Button[i]);
+			if(IP==ButtonString){
+				gtk_widget_set_opacity((GtkWidget*) Button[i],1);
+				gtk_widget_set_sensitive ((GtkWidget*) Button[i], true);
+				return;
+			}
+		}
+
 	for (int i = 0; i<5;i++){
 		const char* lol = IP.c_str();
 
 		std::string ButtonString = (std::string) gtk_button_get_label(Button[i]);
 		cout << ButtonString << endl;
 		if(ButtonString=="NONE"){
-			cout << "Hoi" << endl;
 			gtk_button_set_label(Button[i], lol);
+			IPtoBuffer[IP] = Counter;
+			Counter++;
 			return;
 		}
 	}

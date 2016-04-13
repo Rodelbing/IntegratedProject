@@ -23,8 +23,12 @@
               <object class="GtkButton" id="button1">
                 <property name="label" translatable="yes">NONE</property>
                 <property name="visible">True</property>
+                <property name="sensitive">False</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="opacity">0.5</property>
+                <property name="image_position">right</property>
+                <property name="always_show_image">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -35,9 +39,12 @@
             <child>
               <object class="GtkButton" id="button2">
                 <property name="label" translatable="yes">NONE</property>
+                <property name="name">.5</property>
                 <property name="visible">True</property>
+                <property name="sensitive">False</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="opacity">0.5</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -47,10 +54,12 @@
             </child>
             <child>
               <object class="GtkButton" id="button3">
-                <property name="label" translatable="yes"> </property>
+                <property name="label" translatable="yes">NONE</property>
                 <property name="visible">True</property>
+                <property name="sensitive">False</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="opacity">0.5</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -60,10 +69,12 @@
             </child>
             <child>
               <object class="GtkButton" id="button4">
-                <property name="label" translatable="yes"> </property>
+                <property name="label" translatable="yes">NONE</property>
                 <property name="visible">True</property>
+                <property name="sensitive">False</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="opacity">0.5</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -73,10 +84,12 @@
             </child>
             <child>
               <object class="GtkButton" id="button5">
-                <property name="label" translatable="yes"> </property>
+                <property name="label" translatable="yes">NONE</property>
                 <property name="visible">True</property>
+                <property name="sensitive">False</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="opacity">0.5</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -158,5 +171,4 @@
   <object class="GtkTextBuffer" id="AllText3"/>
   <object class="GtkTextBuffer" id="AllText4"/>
   <object class="GtkTextBuffer" id="AllText5"/>
-  <object class="GtkEntryCompletion" id="entrycompletion1"/>
 </interface>
