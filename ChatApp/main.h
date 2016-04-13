@@ -1,4 +1,4 @@
 using namespace std;
 
 
-void incommingMessage(std::string);
+void incomingMessage(std::string);
