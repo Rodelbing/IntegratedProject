@@ -59,7 +59,7 @@ void start(vector<tableEntry> *inputTable){
 		sendStr = vectorToString(*myTablePtr);
 		multisend(14000, "228.1.2.3", getIP(), sendStr);
 		updateTimetable(myTablePtr);
-		printTable(*myTablePtr);
+		//printTable(*myTablePtr);
 
 		sleep(1);
 	}
