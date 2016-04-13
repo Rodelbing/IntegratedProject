@@ -47,10 +47,10 @@ void Printsend(GtkMenuItem *sender, gpointer user_data)
 
 
 int main(int argc, char *argv[]) {
+	encryptionInit();
 
 	std::thread routing(start, &fwdTable);
 	std::thread test(tcpreceive ,6969, std::ref(q), &fwdTable);
-	encryptionInit();
 
 	GtkBuilder *builder;
 	GObject *ChatWindow;

@@ -147,7 +147,13 @@ vector<tableEntry> stringToVector(string receivedString) {
 	  tableEntry tmp;
 	  tmp.dest = receivedString.substr(i+1, 11);
 	  tmp.via = receivedString.substr(i+13, 11);
-	  tmp.publicKey = std::stoi(receivedString.substr(i+25, 8));
+	  int j = i+25;
+	  string tempKey;
+	  while(isdigit(receivedString[j])){
+		  tempKey += receivedString[j];
+		  j++;
+	  }
+	  tmp.publicKey = std::stoi(tempKey);
 	  tempTable.push_back(tmp);
 	  }
 	}
@@ -159,10 +165,9 @@ vector<tableEntry> stringToVector(string receivedString) {
 
 void printTable(vector<tableEntry> dus){
  for(auto& items: dus){
-	// cout<<items.dest<<" VIA "<<items.via << " FOR ANOTHER " << items.time << "sec" << endl;
-	//cout<<items.dest<<" VIA "<<items.via<<" with key "<<items.publicKey << " FOR ANOTHER " << items.time << "sec" << endl;
+	cout<<items.dest<<" VIA "<<items.via<<" with key "<<items.publicKey << " FOR ANOTHER " << items.time << "sec" << endl;
  	}
- 	//cout<<"<-End table->"<<endl;
+ 	cout<<"<-End table->"<<endl;
 
 }
 
