@@ -1,5 +1,7 @@
 //GUI? zie SFML
 #include <gtk/gtk.h>
+#include <glib.h>
+#include <glib/gprintf.h>
 #include <thread>
 #include <cstring>
 #include <unistd.h>
@@ -22,26 +24,35 @@ vector<tableEntry> fwdTable;
 GtkTextBuffer *Buffer;
 GtkEntry *InputBar;
 
+std::string DestinationIP;
+std::string MyIP = getIP();
+std::string Message;
+
 void Printsend(GtkMenuItem *sender, gpointer user_data)
 {
 	const gchar *Input = gtk_entry_get_text (InputBar);
 	gtk_text_buffer_insert_at_cursor(Buffer, Input , -1);
 	gtk_entry_set_text(InputBar, "");
+	std::string Message = (std::string) Input;
+	std::cout << Message << std::endl;
+	if (Message.size()==0){
+		Message = getIP() + " is connected to you.";
+	}
+	sendMessage( DestinationIP, getNextHop(DestinationIP, fwdTable), encrypt(Message,getPublicKey()));
+
+
 
 			return;
 }
 
 
 int main(int argc, char *argv[]) {
-	std::string DestinationIP;
-	std::string MyIP = getIP();
-	std::string Message;
+
 	std::thread routing(start, &fwdTable);
 	std::thread test(tcpreceive ,6969, std::ref(q), &fwdTable);
 	encryptionInit();
 
 	GtkBuilder *builder;
-	GObject *window;
 	GObject *ChatWindow;
 
 
@@ -52,13 +63,12 @@ int main(int argc, char *argv[]) {
 	gtk_builder_add_from_file (builder, "builder.ui", NULL);
 
 	Buffer = (GtkTextBuffer*) gtk_builder_get_object(builder, "AllText");
-	gtk_text_buffer_set_text(Buffer, "Hoi " , -1);
 	InputBar = (GtkEntry*) gtk_builder_get_object (builder, "TextInput");
 	ChatWindow = gtk_builder_get_object (builder, "ChatText");
 	g_signal_connect (InputBar, "activate", G_CALLBACK (
 			Printsend
 	), NULL);
-
+	gtk_main ();
 
 	std::cout << "Destination IP" << std::endl;
 	std::cin >> DestinationIP;
