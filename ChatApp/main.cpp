@@ -88,7 +88,7 @@ int main(int argc, char *argv[]) {
 
 }
 
-void incommingMessage(string input){
+void incomingMessage(string input){
 	const char* message = input.c_str();
 	gtk_text_buffer_insert_at_cursor(Buffer, message , -1);
 }

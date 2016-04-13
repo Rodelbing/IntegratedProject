@@ -26,7 +26,8 @@ int analyzeTCP(std::string Packet, std::vector <tableEntry> inputTable){
 if(SplitMessage[1] == getIP()){		// If this message is directed to me:
 	if(SplitMessage[2] == "MSG"){
 		std::cout << SplitMessage[1] << ": " << decrypt(SplitMessage[3],getReceiverKey(SplitMessage[0], inputTable)) << std::endl;
-		incommingMessage(decrypt(SplitMessage[3],getReceiverKey(SplitMessage[0], inputTable)));
+		string message = SplitMessage[0] + ": " + decrypt(SplitMessage[3],getReceiverKey(SplitMessage[0], inputTable)) + "\n";
+		incomingMessage(message);
 	}
 }else{								// Elsewise forward it
 	sendMessage(SplitMessage[1], getNextHop(SplitMessage[1], inputTable), SplitMessage[3]);
