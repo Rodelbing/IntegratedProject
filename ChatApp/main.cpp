@@ -33,8 +33,13 @@ void Printsend(GtkMenuItem *sender, gpointer user_data)
 	const gchar *Input = gtk_entry_get_text (InputBar);
 	gtk_text_buffer_insert_at_cursor(Buffer, Input , -1);
 	gtk_entry_set_text(InputBar, "");
-	std::string Message = (std::string) Input;
-	std::cout << Message << std::endl;
+	char Messagep[10];
+	sprintf(Messagep, "%8s\n", Input);
+	std::cout <<"Messagep:" << Messagep << std::endl;
+	std::string Message = (std::string)Input;
+	//Message.assign(Input,3);
+	std::cout <<"Message:" << Message << std::endl;
+	std::cin >> Message;
 	if (Message.size()==0){
 		Message = getIP() + " is connected to you.";
 	}
@@ -54,10 +59,10 @@ int main(int argc, char *argv[]) {
 
 	GtkBuilder *builder;
 	GObject *ChatWindow;
-
+	std::cout << "Test1" << std::endl;
 
 	gtk_init (&argc, &argv);
-
+	std::cout << "Test1" << std::endl;
 	   //Construct a GtkBuilder instance and load our UI description
 	builder = gtk_builder_new ();
 	gtk_builder_add_from_file (builder, "builder.ui", NULL);
@@ -68,10 +73,11 @@ int main(int argc, char *argv[]) {
 	g_signal_connect (InputBar, "activate", G_CALLBACK (
 			Printsend
 	), NULL);
-	gtk_main ();
+	std::cout << "Test1" << std::endl;
 
 	std::cout << "Destination IP" << std::endl;
 	std::cin >> DestinationIP;
+	gtk_main ();
 	std::cout << "Say something: " << std::endl;
 	while(1){
 		Message.clear();
