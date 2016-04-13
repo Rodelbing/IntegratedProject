@@ -106,6 +106,7 @@ void routing(string recStr) {
 			tmp.time = 5;
 			tmp.publicKey = recItem.publicKey;
 			myTablePtr->push_back(tmp);
+			addButton(tmp.dest);
 				}
 		if(update){
 			for(auto& items: *myTablePtr){
@@ -183,8 +184,9 @@ void updateTimetable(vector<tableEntry> *dus){
 		if(item.time < 1)
 		{
 			if (item.dest != getIP()){
-				//cout << "delete!" << endl;
+				cout << "delete!" << endl;
 				tableEntry *ptr = &item;
+				deleteButton(item.dest);
 				next_i = dus->erase(i);
 
 			}
