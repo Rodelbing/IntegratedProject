@@ -35,6 +35,11 @@ std::string Message;
 std::map<std::string,int> IPtoBuffer;
 int Counter = 0;
 
+void End(GtkMenuItem *sender, gpointer user_data)
+{
+	exit(0);
+}
+
 void Printsend(GtkMenuItem *sender, gpointer user_data)
 {
 	if (DestinationIP.size()!=0){
@@ -72,11 +77,15 @@ int main(int argc, char *argv[]) {
 	std::thread routing(start, &fwdTable);
 	std::thread test(tcpreceive ,6969, std::ref(q), &fwdTable);
 
+	GObject *window;
 	GtkBuilder *builder;
 	gtk_init (&argc, &argv);
 	   //Construct a GtkBuilder instance and load our UI description
 	builder = gtk_builder_new ();
 	gtk_builder_add_from_file (builder, "builder.ui", NULL);
+
+	window = gtk_builder_get_object (builder, "window");
+	g_signal_connect (window, "destroy", G_CALLBACK (End), NULL);
 
 	Button[0] = (GtkButton*) gtk_builder_get_object (builder, "button1");
 	Button[1] = (GtkButton*) gtk_builder_get_object (builder, "button2");
