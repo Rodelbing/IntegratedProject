@@ -60,7 +60,7 @@ void ButtonClick(GtkButton *sender, gpointer user_data)
 	if(gtk_button_get_label(sender) != "NONE"){
 		DestinationIP = gtk_button_get_label(sender);
 		gtk_text_view_set_buffer(ChatText, Buffer[IPtoBuffer[gtk_button_get_label(sender)]]);
-		gtk_widget_set_sensitive ((GtkWidget*) InputBar, true);
+		gtk_editable_set_editable( (GtkEditable*) InputBar, true);
 	}
 
 
@@ -134,7 +134,7 @@ void deleteButton(std::string IP){
 			gtk_widget_set_sensitive ((GtkWidget*) Button[i], false);
 			if(getNextHop(DestinationIP, fwdTable) == ButtonString){
 				DestinationIP = "";
-				gtk_widget_set_sensitive ((GtkWidget*) InputBar, false);
+				gtk_editable_set_editable( (GtkEditable*) InputBar, false);
 			}
 		}
 	}
