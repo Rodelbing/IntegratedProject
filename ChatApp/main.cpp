@@ -45,10 +45,7 @@ void Printsend(GtkMenuItem *sender, gpointer user_data)
 		gtk_text_buffer_insert_at_cursor(gtk_text_view_get_buffer(ChatText), Insert , -1);
 
 		gtk_entry_set_text(InputBar, "");
-		if (Message.size()==0){
-			Message = getIP() + " is connected to you.";
-			sendMessage(getIP(), DestinationIP, getNextHop(DestinationIP, fwdTable), encrypt(Message,getReceiverKey(DestinationIP, fwdTable)));
-		}
+		sendMessage(getIP(), DestinationIP, getNextHop(DestinationIP, fwdTable), encrypt(Message,getReceiverKey(DestinationIP, fwdTable)));
 	}
 	Message.clear();
 	return;
