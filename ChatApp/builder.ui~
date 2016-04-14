@@ -28,7 +28,6 @@
                 <property name="receives_default">True</property>
                 <property name="opacity">0.5</property>
                 <property name="image_position">right</property>
-                <property name="always_show_image">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -39,7 +38,6 @@
             <child>
               <object class="GtkButton" id="button2">
                 <property name="label" translatable="yes">NONE</property>
-                <property name="name">.5</property>
                 <property name="visible">True</property>
                 <property name="sensitive">False</property>
                 <property name="can_focus">True</property>
