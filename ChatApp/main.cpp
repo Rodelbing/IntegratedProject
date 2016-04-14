@@ -157,6 +157,8 @@ void addButton(std::string IP){
 		if(ButtonString=="NONE"){
 			gtk_button_set_label(Button[i], lol);
 			IPtoBuffer[IP] = Counter;
+			gtk_widget_set_opacity((GtkWidget*) Button[i],1);
+			gtk_widget_set_sensitive ((GtkWidget*) Button[i], true);
 			Counter++;
 			return;
 		}
